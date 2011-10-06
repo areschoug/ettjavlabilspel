@@ -156,6 +156,7 @@
 		292A64FF142A79C800EB17E7 /* menu-newgame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-newgame.png"; sourceTree = "<group>"; };
 		295695601420CB49006E90A1 /* Car.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Car.h; sourceTree = "<group>"; };
 		295695611420CB49006E90A1 /* Car.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Car.m; sourceTree = "<group>"; };
+		2976E7B8143E618E008210BA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Info.plist; sourceTree = "<absolute>"; };
 		2988430514320DA00043C644 /* HighScoreScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreScene.h; sourceTree = "<group>"; };
 		2988430614320DA00043C644 /* HighScoreScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoreScene.m; sourceTree = "<group>"; };
 		29884308143221B90043C644 /* menu-highscore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-highscore.png"; sourceTree = "<group>"; };
@@ -182,7 +183,6 @@
 		29BB9FC1141EB79D003A659B /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		29BB9FC3141EB79D003A659B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		29BB9FC5141EB79D003A659B /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
-		29BB9FC7141EB79D003A659B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29BB9FC8141EB79D003A659B /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		29BB9FCC141EB79D003A659B /* CCAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CCAction.h; path = libs/cocos2d/CCAction.h; sourceTree = "<group>"; };
 		29BB9FCD141EB79D003A659B /* CCAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CCAction.m; path = libs/cocos2d/CCAction.m; sourceTree = "<group>"; };
@@ -555,13 +555,13 @@
 		29BB9FB6141EB79D003A659B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2976E7B8143E618E008210BA /* Info.plist */,
 				2988430C143222250043C644 /* Icons */,
 				2976E7B7143E5A90008210BA /* Sound */,
 				2988430B1432220B0043C644 /* Game */,
 				2988430A143221E80043C644 /* Menu */,
 				29BB9FB7141EB79D003A659B /* Default.png */,
 				29BB9FB9141EB79D003A659B /* fps_images.png */,
-				29BB9FC7141EB79D003A659B /* Info.plist */,
 				29BB9FC8141EB79D003A659B /* iTunesArtwork */,
 			);
 			name = Resources;
@@ -923,6 +923,9 @@
 /* Begin PBXProject section */
 		29BB9F98141EB79D003A659B /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0410;
+			};
 			buildConfigurationList = 29BB9F9B141EB79D003A659B /* Build configuration list for PBXProject "ettjavlabilspel" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -1096,6 +1099,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1135,11 +1139,14 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = AccelerometerTest/Prefix.pch;
+				GCC_PREFIX_HEADER = ettjavlabilspel/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
-				INFOPLIST_FILE = AccelerometerTest/Resources/Info.plist;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				INFOPLIST_FILE = ettjavlabilspel/Resources/Info.plist;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = ettjavlabilspel;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1150,11 +1157,13 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = AccelerometerTest/Prefix.pch;
+				GCC_PREFIX_HEADER = ettjavlabilspel/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
-				INFOPLIST_FILE = AccelerometerTest/Resources/Info.plist;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				INFOPLIST_FILE = ettjavlabilspel/Resources/Info.plist;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = ettjavlabilspel;
+				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
