@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		290BFB00141FECE50045EBF1 /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 290BFAFF141FECE50045EBF1 /* bg@2x.png */; };
-		290BFB03141FEFA80045EBF1 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 290BFB02141FEFA80045EBF1 /* bg.png */; };
 		291390961433D87800F490C6 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 291390951433D87800F490C6 /* GameOverScene.m */; };
-		2913909D1434999B00F490C6 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2913909C1434999B00F490C6 /* music.mp3 */; };
+		2913909D1434999B00F490C6 /* Sound in Resources */ = {isa = PBXBuildFile; fileRef = 2913909C1434999B00F490C6 /* Sound */; };
 		292A6500142A79C800EB17E7 /* menu-continue.png in Resources */ = {isa = PBXBuildFile; fileRef = 292A64FE142A79C800EB17E7 /* menu-continue.png */; };
 		292A6501142A79C800EB17E7 /* menu-newgame.png in Resources */ = {isa = PBXBuildFile; fileRef = 292A64FF142A79C800EB17E7 /* menu-newgame.png */; };
 		295695621420CB49006E90A1 /* Car.m in Sources */ = {isa = PBXBuildFile; fileRef = 295695611420CB49006E90A1 /* Car.m */; };
@@ -151,11 +149,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		290BFAFF141FECE50045EBF1 /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
-		290BFB02141FEFA80045EBF1 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		291390941433D87800F490C6 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		291390951433D87800F490C6 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
-		2913909C1434999B00F490C6 /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
+		2913909C1434999B00F490C6 /* Sound */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sound; path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Sound; sourceTree = "<absolute>"; };
 		292A64FE142A79C800EB17E7 /* menu-continue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-continue.png"; sourceTree = "<group>"; };
 		292A64FF142A79C800EB17E7 /* menu-newgame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-newgame.png"; sourceTree = "<group>"; };
 		295695601420CB49006E90A1 /* Car.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Car.h; sourceTree = "<group>"; };
@@ -178,16 +174,16 @@
 		29BB9FAF141EB79D003A659B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		29BB9FB1141EB79D003A659B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		29BB9FB3141EB79D003A659B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		29BB9FB7141EB79D003A659B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
-		29BB9FB9141EB79D003A659B /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fps_images.png; path = Resources/fps_images.png; sourceTree = "<group>"; };
-		29BB9FBB141EB79D003A659B /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Resources/Icon-72.png"; sourceTree = "<group>"; };
-		29BB9FBD141EB79D003A659B /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "Resources/Icon-Small-50.png"; sourceTree = "<group>"; };
-		29BB9FBF141EB79D003A659B /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "Resources/Icon-Small.png"; sourceTree = "<group>"; };
-		29BB9FC1141EB79D003A659B /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@2x.png"; path = "Resources/Icon-Small@2x.png"; sourceTree = "<group>"; };
-		29BB9FC3141EB79D003A659B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Resources/Icon.png; sourceTree = "<group>"; };
-		29BB9FC5141EB79D003A659B /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Resources/Icon@2x.png"; sourceTree = "<group>"; };
-		29BB9FC7141EB79D003A659B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = "<group>"; };
-		29BB9FC8141EB79D003A659B /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; name = iTunesArtwork; path = Resources/iTunesArtwork; sourceTree = "<group>"; };
+		29BB9FB7141EB79D003A659B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Default.png; sourceTree = "<absolute>"; };
+		29BB9FB9141EB79D003A659B /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fps_images.png; path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/fps_images.png; sourceTree = "<absolute>"; };
+		29BB9FBB141EB79D003A659B /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "/Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Icons/Icon-72.png"; sourceTree = "<absolute>"; };
+		29BB9FBD141EB79D003A659B /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		29BB9FBF141EB79D003A659B /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		29BB9FC1141EB79D003A659B /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		29BB9FC3141EB79D003A659B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		29BB9FC5141EB79D003A659B /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		29BB9FC7141EB79D003A659B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		29BB9FC8141EB79D003A659B /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		29BB9FCC141EB79D003A659B /* CCAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CCAction.h; path = libs/cocos2d/CCAction.h; sourceTree = "<group>"; };
 		29BB9FCD141EB79D003A659B /* CCAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CCAction.m; path = libs/cocos2d/CCAction.m; sourceTree = "<group>"; };
 		29BB9FCF141EB79D003A659B /* CCActionCamera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CCActionCamera.h; path = libs/cocos2d/CCActionCamera.h; sourceTree = "<group>"; };
@@ -404,24 +400,24 @@
 		29BBA10D141EB7A0003A659B /* HelloWorldLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldLayer.h; sourceTree = "<group>"; };
 		29BBA10E141EB7A0003A659B /* HelloWorldLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldLayer.m; sourceTree = "<group>"; };
 		29BBA110141EB7A0003A659B /* GameConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
-		29D2C5A5142165EF007ECD71 /* paus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paus.png; sourceTree = "<group>"; };
-		29D2C5A7142166DF007ECD71 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
+		29D2C5A5142165EF007ECD71 /* paus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paus.png; path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Game/paus.png; sourceTree = "<absolute>"; };
+		29D2C5A7142166DF007ECD71 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause.png; path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Game/pause.png; sourceTree = "<absolute>"; };
 		29D960D01421E94B00A0F60A /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
 		29D960D11421E94B00A0F60A /* Entity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entity.m; sourceTree = "<group>"; };
-		29D960DA1422203500A0F60A /* bil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bil.png; sourceTree = "<group>"; };
-		29D960E21422268D00A0F60A /* hinder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hinder.png; sourceTree = "<group>"; };
-		29D960E8142233A300A0F60A /* road.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = road.png; sourceTree = "<group>"; };
+		29D960DA1422203500A0F60A /* bil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bil.png; path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Game/bil.png; sourceTree = "<absolute>"; };
+		29D960E21422268D00A0F60A /* hinder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hinder.png; path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Game/hinder.png; sourceTree = "<absolute>"; };
+		29D960E8142233A300A0F60A /* road.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = road.png; path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Game/road.png; sourceTree = "<absolute>"; };
 		29FB67EE14267F4400974652 /* GameLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLayer.h; sourceTree = "<group>"; };
 		29FB67EF14267F4400974652 /* GameLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLayer.m; sourceTree = "<group>"; };
-		29FCFC6E142C7C3600CEA89B /* hinder2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hinder2.png; sourceTree = "<group>"; };
-		29FCFC71142C84A100CEA89B /* hinder3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hinder3.png; sourceTree = "<group>"; };
-		29FCFC73142C870900CEA89B /* flaska.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flaska.png; sourceTree = "<group>"; };
-		29FCFC77142C928900CEA89B /* flaska2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flaska2.png; sourceTree = "<group>"; };
+		29FCFC6E142C7C3600CEA89B /* hinder2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hinder2.png; path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Game/hinder2.png; sourceTree = "<absolute>"; };
+		29FCFC71142C84A100CEA89B /* hinder3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hinder3.png; path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Game/hinder3.png; sourceTree = "<absolute>"; };
+		29FCFC73142C870900CEA89B /* flaska.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flaska.png; path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Game/flaska.png; sourceTree = "<absolute>"; };
+		29FCFC77142C928900CEA89B /* flaska2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flaska2.png; path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Game/flaska2.png; sourceTree = "<absolute>"; };
 		29FCFC79142CCCDD00CEA89B /* Alcohol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alcohol.h; sourceTree = "<group>"; };
 		29FCFC7A142CCCDD00CEA89B /* Alcohol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Alcohol.m; sourceTree = "<group>"; };
 		29FCFC7C142CE09F00CEA89B /* DestroyedCar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestroyedCar.h; sourceTree = "<group>"; };
 		29FCFC7D142CE09F00CEA89B /* DestroyedCar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestroyedCar.m; sourceTree = "<group>"; };
-		29FCFC7F142CE1E900CEA89B /* dubbelhinder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dubbelhinder.png; sourceTree = "<group>"; };
+		29FCFC7F142CE1E900CEA89B /* dubbelhinder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dubbelhinder.png; path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Game/dubbelhinder.png; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -443,6 +439,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2976E7B7143E5A90008210BA /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				2913909C1434999B00F490C6 /* Sound */,
+			);
+			name = Sound;
+			path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Sound;
+			sourceTree = "<absolute>";
+		};
 		2988430A143221E80043C644 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
@@ -451,9 +456,10 @@
 				292A64FF142A79C800EB17E7 /* menu-newgame.png */,
 			);
 			name = Menu;
-			sourceTree = "<group>";
+			path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Menu;
+			sourceTree = "<absolute>";
 		};
-		2988430B1432220B0043C644 /* Spel */ = {
+		2988430B1432220B0043C644 /* Game */ = {
 			isa = PBXGroup;
 			children = (
 				29FCFC77142C928900CEA89B /* flaska2.png */,
@@ -467,10 +473,11 @@
 				29D960E21422268D00A0F60A /* hinder.png */,
 				29D960E8142233A300A0F60A /* road.png */,
 			);
-			name = Spel;
-			sourceTree = "<group>";
+			name = Game;
+			path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Game;
+			sourceTree = "<absolute>";
 		};
-		2988430C143222250043C644 /* Ikoner */ = {
+		2988430C143222250043C644 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
 				29BB9FBB141EB79D003A659B /* Icon-72.png */,
@@ -480,8 +487,9 @@
 				29BB9FC3141EB79D003A659B /* Icon.png */,
 				29BB9FC5141EB79D003A659B /* Icon@2x.png */,
 			);
-			name = Ikoner;
-			sourceTree = "<group>";
+			name = Icons;
+			path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Icons;
+			sourceTree = "<absolute>";
 		};
 		29BB9F96141EB79D003A659B = {
 			isa = PBXGroup;
@@ -541,25 +549,24 @@
 				29BBA103141EB7A0003A659B /* Supporting Files */,
 			);
 			name = ettjavlabilspel;
-			path = AccelerometerTest;
-			sourceTree = "<group>";
+			path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel;
+			sourceTree = "<absolute>";
 		};
 		29BB9FB6141EB79D003A659B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2913909C1434999B00F490C6 /* music.mp3 */,
-				2988430B1432220B0043C644 /* Spel */,
+				2988430C143222250043C644 /* Icons */,
+				2976E7B7143E5A90008210BA /* Sound */,
+				2988430B1432220B0043C644 /* Game */,
 				2988430A143221E80043C644 /* Menu */,
-				290BFAFF141FECE50045EBF1 /* bg@2x.png */,
-				290BFB02141FEFA80045EBF1 /* bg.png */,
 				29BB9FB7141EB79D003A659B /* Default.png */,
 				29BB9FB9141EB79D003A659B /* fps_images.png */,
-				2988430C143222250043C644 /* Ikoner */,
 				29BB9FC7141EB79D003A659B /* Info.plist */,
 				29BB9FC8141EB79D003A659B /* iTunesArtwork */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
+			path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources;
+			sourceTree = "<absolute>";
 		};
 		29BB9FCA141EB79D003A659B /* libs */ = {
 			isa = PBXGroup;
@@ -575,7 +582,8 @@
 				29BBA0F1141EB79F003A659B /* FontLabel */,
 			);
 			name = libs;
-			sourceTree = "<group>";
+			path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel;
+			sourceTree = "<absolute>";
 		};
 		29BB9FCB141EB79D003A659B /* cocos2d */ = {
 			isa = PBXGroup;
@@ -887,7 +895,8 @@
 				29FCFC7A142CCCDD00CEA89B /* Alcohol.m */,
 			);
 			name = Entity;
-			sourceTree = "<group>";
+			path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Entity;
+			sourceTree = "<absolute>";
 		};
 /* End PBXGroup section */
 
@@ -945,8 +954,6 @@
 				29BB9FC4141EB79D003A659B /* Icon.png in Resources */,
 				29BB9FC6141EB79D003A659B /* Icon@2x.png in Resources */,
 				29BB9FC9141EB79D003A659B /* iTunesArtwork in Resources */,
-				290BFB00141FECE50045EBF1 /* bg@2x.png in Resources */,
-				290BFB03141FEFA80045EBF1 /* bg.png in Resources */,
 				29D2C5A6142165EF007ECD71 /* paus.png in Resources */,
 				29D2C5A8142166DF007ECD71 /* pause.png in Resources */,
 				29D960DB1422203500A0F60A /* bil.png in Resources */,
@@ -960,7 +967,7 @@
 				29FCFC78142C928900CEA89B /* flaska2.png in Resources */,
 				29FCFC80142CE1E900CEA89B /* dubbelhinder.png in Resources */,
 				29884309143221B90043C644 /* menu-highscore.png in Resources */,
-				2913909D1434999B00F490C6 /* music.mp3 in Resources */,
+				2913909D1434999B00F490C6 /* Sound in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
