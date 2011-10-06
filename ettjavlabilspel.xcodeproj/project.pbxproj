@@ -169,7 +169,7 @@
 		29B7958F1428D353008D85AC /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
 		29B795911428FBCD008D85AC /* Hole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hole.h; sourceTree = "<group>"; };
 		29B795921428FBCD008D85AC /* Hole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hole.m; sourceTree = "<group>"; };
-		29BB9FA1141EB79D003A659B /* AccelerometerTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AccelerometerTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		29BB9FA1141EB79D003A659B /* ettjavlabilspel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ettjavlabilspel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29BB9FA5141EB79D003A659B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		29BB9FA7141EB79D003A659B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		29BB9FA9141EB79D003A659B /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -486,7 +486,7 @@
 		29BB9F96141EB79D003A659B = {
 			isa = PBXGroup;
 			children = (
-				29BB9FB5141EB79D003A659B /* AccelerometerTest */,
+				29BB9FB5141EB79D003A659B /* ettjavlabilspel */,
 				29BB9FA4141EB79D003A659B /* Frameworks */,
 				29BB9FA2141EB79D003A659B /* Products */,
 			);
@@ -495,7 +495,7 @@
 		29BB9FA2141EB79D003A659B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				29BB9FA1141EB79D003A659B /* AccelerometerTest.app */,
+				29BB9FA1141EB79D003A659B /* ettjavlabilspel.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -515,7 +515,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		29BB9FB5141EB79D003A659B /* AccelerometerTest */ = {
+		29BB9FB5141EB79D003A659B /* ettjavlabilspel */ = {
 			isa = PBXGroup;
 			children = (
 				29BBA107141EB7A0003A659B /* AppDelegate.h */,
@@ -540,6 +540,7 @@
 				29BB9FCA141EB79D003A659B /* libs */,
 				29BBA103141EB7A0003A659B /* Supporting Files */,
 			);
+			name = ettjavlabilspel;
 			path = AccelerometerTest;
 			sourceTree = "<group>";
 		};
@@ -891,9 +892,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		29BB9FA0141EB79D003A659B /* AccelerometerTest */ = {
+		29BB9FA0141EB79D003A659B /* ettjavlabilspel */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 29BBA113141EB7A0003A659B /* Build configuration list for PBXNativeTarget "AccelerometerTest" */;
+			buildConfigurationList = 29BBA113141EB7A0003A659B /* Build configuration list for PBXNativeTarget "ettjavlabilspel" */;
 			buildPhases = (
 				29BB9F9D141EB79D003A659B /* Sources */,
 				29BB9F9E141EB79D003A659B /* Frameworks */,
@@ -903,9 +904,9 @@
 			);
 			dependencies = (
 			);
-			name = AccelerometerTest;
+			name = ettjavlabilspel;
 			productName = AccelerometerTest;
-			productReference = 29BB9FA1141EB79D003A659B /* AccelerometerTest.app */;
+			productReference = 29BB9FA1141EB79D003A659B /* ettjavlabilspel.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -913,7 +914,7 @@
 /* Begin PBXProject section */
 		29BB9F98141EB79D003A659B /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 29BB9F9B141EB79D003A659B /* Build configuration list for PBXProject "AccelerometerTest" */;
+			buildConfigurationList = 29BB9F9B141EB79D003A659B /* Build configuration list for PBXProject "ettjavlabilspel" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -925,7 +926,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				29BB9FA0141EB79D003A659B /* AccelerometerTest */,
+				29BB9FA0141EB79D003A659B /* ettjavlabilspel */,
 			);
 		};
 /* End PBXProject section */
@@ -1131,7 +1132,7 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = AccelerometerTest/Resources/Info.plist;
 				OTHER_LDFLAGS = "-lz";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ettjavlabilspel;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1146,7 +1147,7 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = AccelerometerTest/Resources/Info.plist;
 				OTHER_LDFLAGS = "-lz";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ettjavlabilspel;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1155,7 +1156,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		29BB9F9B141EB79D003A659B /* Build configuration list for PBXProject "AccelerometerTest" */ = {
+		29BB9F9B141EB79D003A659B /* Build configuration list for PBXProject "ettjavlabilspel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				29BBA111141EB7A0003A659B /* Debug */,
@@ -1164,7 +1165,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		29BBA113141EB7A0003A659B /* Build configuration list for PBXNativeTarget "AccelerometerTest" */ = {
+		29BBA113141EB7A0003A659B /* Build configuration list for PBXNativeTarget "ettjavlabilspel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				29BBA114141EB7A0003A659B /* Debug */,
