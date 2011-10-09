@@ -8,10 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		291390961433D87800F490C6 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 291390951433D87800F490C6 /* GameOverScene.m */; };
-		2913909D1434999B00F490C6 /* Sound in Resources */ = {isa = PBXBuildFile; fileRef = 2913909C1434999B00F490C6 /* Sound */; };
 		292A6500142A79C800EB17E7 /* menu-continue.png in Resources */ = {isa = PBXBuildFile; fileRef = 292A64FE142A79C800EB17E7 /* menu-continue.png */; };
 		292A6501142A79C800EB17E7 /* menu-newgame.png in Resources */ = {isa = PBXBuildFile; fileRef = 292A64FF142A79C800EB17E7 /* menu-newgame.png */; };
 		295695621420CB49006E90A1 /* Car.m in Sources */ = {isa = PBXBuildFile; fileRef = 295695611420CB49006E90A1 /* Car.m */; };
+		2981E86B143FD92800F4069F /* menu_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2981E869143FD92800F4069F /* menu_music.mp3 */; };
+		2981E86C143FD92800F4069F /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2981E86A143FD92800F4069F /* music.mp3 */; };
 		2988430714320DA00043C644 /* HighScoreScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2988430614320DA00043C644 /* HighScoreScene.m */; };
 		29884309143221B90043C644 /* menu-highscore.png in Resources */ = {isa = PBXBuildFile; fileRef = 29884308143221B90043C644 /* menu-highscore.png */; };
 		298ABAD6143DB32A00DC306A /* PauseLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 298ABAD5143DB32A00DC306A /* PauseLayer.m */; };
@@ -151,12 +152,13 @@
 /* Begin PBXFileReference section */
 		291390941433D87800F490C6 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		291390951433D87800F490C6 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
-		2913909C1434999B00F490C6 /* Sound */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sound; path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Sound; sourceTree = "<absolute>"; };
 		292A64FE142A79C800EB17E7 /* menu-continue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-continue.png"; sourceTree = "<group>"; };
 		292A64FF142A79C800EB17E7 /* menu-newgame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-newgame.png"; sourceTree = "<group>"; };
 		295695601420CB49006E90A1 /* Car.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Car.h; sourceTree = "<group>"; };
 		295695611420CB49006E90A1 /* Car.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Car.m; sourceTree = "<group>"; };
 		2976E7B8143E618E008210BA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Info.plist; sourceTree = "<absolute>"; };
+		2981E869143FD92800F4069F /* menu_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = menu_music.mp3; sourceTree = "<group>"; };
+		2981E86A143FD92800F4069F /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
 		2988430514320DA00043C644 /* HighScoreScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreScene.h; sourceTree = "<group>"; };
 		2988430614320DA00043C644 /* HighScoreScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoreScene.m; sourceTree = "<group>"; };
 		29884308143221B90043C644 /* menu-highscore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-highscore.png"; sourceTree = "<group>"; };
@@ -442,7 +444,8 @@
 		2976E7B7143E5A90008210BA /* Sound */ = {
 			isa = PBXGroup;
 			children = (
-				2913909C1434999B00F490C6 /* Sound */,
+				2981E869143FD92800F4069F /* menu_music.mp3 */,
+				2981E86A143FD92800F4069F /* music.mp3 */,
 			);
 			name = Sound;
 			path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Sound;
@@ -970,7 +973,8 @@
 				29FCFC78142C928900CEA89B /* flaska2.png in Resources */,
 				29FCFC80142CE1E900CEA89B /* dubbelhinder.png in Resources */,
 				29884309143221B90043C644 /* menu-highscore.png in Resources */,
-				2913909D1434999B00F490C6 /* Sound in Resources */,
+				2981E86B143FD92800F4069F /* menu_music.mp3 in Resources */,
+				2981E86C143FD92800F4069F /* music.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

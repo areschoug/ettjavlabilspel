@@ -39,6 +39,8 @@ int drunkTimer;
         score = [Game sharedGame].currentScore;
         self.isAccelerometerEnabled = YES;
         [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+        //MUSIC
+        [[SimpleAudioEngine sharedEngine]playBackgroundMusic:@"music.mp3"];
         //MENU
         CCMenuItemImage *pausButton = [CCMenuItemImage itemFromNormalImage:@"pause.png" selectedImage:@"pause.png" target:self selector:@selector(menuItemClicked:)];
         menu = [CCMenu menuWithItems:pausButton, nil];

@@ -65,14 +65,10 @@
             highScoreButton.position = ccp(0, highScoreButton.position.y + 100);
         }
         [self addChild:menu];
-        
-    
-        NSLog(@" innan");
-        if(![Game sharedGame].music){
-            [[SimpleAudioEngine sharedEngine]playBackgroundMusic:@"music.mp3"];
-            [Game sharedGame].music = YES;
-            NSLog(@"IN");
-        }
+
+        [[SimpleAudioEngine sharedEngine]playBackgroundMusic:@"menu_music.mp3"];
+
+
 	}
 	return self;
 }
