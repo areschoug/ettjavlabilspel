@@ -10,8 +10,9 @@
 
 #import "AppDelegate.h"
 #import "GameConfig.h"
-#import "HelloWorldLayer.h"
+//TABORT^
 #import "RootViewController.h"
+#import "SceneManager.h"
 
 @implementation AppDelegate
 
@@ -110,7 +111,11 @@
 	[self removeStartupFlicker];
 	
 	// Run the intro Scene
-	[[CCDirector sharedDirector] runWithScene: [HelloWorldLayer scene]];
+//	[[CCDirector sharedDirector] replaceScene:];
+    //TABORT^
+    [SceneManager goMenu];
+    
+    
 }
 
 

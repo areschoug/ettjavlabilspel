@@ -10,5 +10,5 @@
 @property(nonatomic,retain) NSString *spriteImage;
 
 -(void) moveX:(float)accX moveY:(float)accY;
-
+-(float)scoreMultiplier;
 @end

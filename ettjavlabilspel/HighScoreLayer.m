@@ -1,5 +1,5 @@
 //
-//  HighScoreScene.m
+//  HighScoreLayer.m
 //  ettjavlabilspel
 //
 //  Created by Andreas Areschoug.
@@ -13,17 +13,17 @@
 //  - possible your friends highscore
 //  - possible post score to twitter,facebook or something.
 
-#import "HighScoreScene.h"
+#import "HighScoreLayer.h"
 
 
-@implementation HighScoreScene
+@implementation HighScoreLayer
 
 
 +(CCScene *) scene
 {
     CCScene *scene = [CCScene node];
     
-    HighScoreScene *layer = [HighScoreScene node];
+    HighScoreLayer *layer = [HighScoreLayer node];
     
     [scene addChild:layer];
     
@@ -61,7 +61,7 @@
 }
 
 -(void)backButtonClicked:(id) sender{  
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:[HelloWorldLayer node]]];
+    [SceneManager goMenu];
 }
 
 -(void)dealloc{

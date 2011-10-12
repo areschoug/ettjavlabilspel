@@ -39,8 +39,10 @@ int drunkTimer;
         score = [Game sharedGame].currentScore;
         self.isAccelerometerEnabled = YES;
         [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+        
         //MUSIC
         [[SimpleAudioEngine sharedEngine]playBackgroundMusic:@"music.mp3"];
+        
         //MENU
         CCMenuItemImage *pausButton = [CCMenuItemImage itemFromNormalImage:@"pause.png" selectedImage:@"pause.png" target:self selector:@selector(menuItemClicked:)];
         menu = [CCMenu menuWithItems:pausButton, nil];
@@ -99,35 +101,13 @@ int drunkTimer;
         drunkTimer -= 1;
     }
     
-    if (accX > 0.2) {
-        NSLog(@"if");
-        [car runAction:[CCRotateBy actionWithDuration:1/10 angle:(accX * 5)]];
-    }
-    
-    if (accX < -0.2){
-        NSLog(@"if2");
-        [car runAction:[CCRotateBy actionWithDuration:1/10 angle:(accX * 5)]];
-    }
-    
-    //if(accX < 0.2 && accX > -0.2){
-      //  NSLog(@"as");
-        //[car runAction:[CCRotateTo actionWithDuration:0 angle:0]];
-    //}
-
     [car moveX:accX moveY:accY];
     
-    //Hole collision with car results in a game ending tragedy
-    if([hole collision:car]){
+    //Collision by car results in a game ending tragedy
+    if([destroyedCar collision:car] || [hole collision:car]){
         [Game sharedGame].gameSpeed = 0;
         [Game sharedGame].currentScore = score/10;
-        [[CCDirector sharedDirector] replaceScene:[GameOverScene node]];
-    }
-
-    //Hole collision with car results in a game ending tragedy
-    if([destroyedCar collision:car]){
-        [Game sharedGame].gameSpeed = 0;
-        [Game sharedGame].currentScore = score/10;
-        [[CCDirector sharedDirector] replaceScene:[GameOverScene node]];
+        [SceneManager goGameOver];
     }
     
     // When drunktime is 0 the player becomes sober again, and the steering
@@ -155,8 +135,6 @@ int drunkTimer;
     }
     */
 }
-
-
     /* menuItemClicked: (id)sender
      *
      * The pause button gets clicked. 
@@ -175,7 +153,7 @@ int drunkTimer;
     [Game sharedGame].bottlePosition = bottle.position;
     [Game sharedGame].destroyedCarPosition = destroyedCar.position; 
     //Change the scene
-    [[CCDirector sharedDirector] replaceScene:[HelloWorldLayer node]];
+    [SceneManager goMenu];
     
 }
 

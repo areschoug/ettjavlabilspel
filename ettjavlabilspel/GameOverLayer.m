@@ -11,16 +11,16 @@
 //  - a play again button
 
 
-#import "GameOverScene.h"
+#import "GameOverLayer.h"
 
 
-@implementation GameOverScene
+@implementation GameOverLayer
 
 +(CCScene *) scene
 {
     CCScene *scene = [CCScene node];
     
-    GameOverScene *layer = [GameOverScene node];
+    GameOverLayer *layer = [GameOverLayer node];
     
     [scene addChild:layer];
     
@@ -69,7 +69,7 @@
 
 -(void)backButtonClicked:(id)sender
 {
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:[HelloWorldLayer node]]];
+    [SceneManager goMenu];
 }
 
 -(void)saveHighScore

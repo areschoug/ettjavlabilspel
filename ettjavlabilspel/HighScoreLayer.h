@@ -1,5 +1,5 @@
 //
-//  HighScoreScene.h
+//  HighScoreLayer.h
 //  ettjavlabilspel
 //
 //  Created by Andreas Areschoug.
@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
-#import "HelloWorldLayer.h"
+#import "SceneManager.h"
 
-@interface HighScoreScene : CCLayer {
+@interface HighScoreLayer : CCLayer {
     
 }
 +(CCScene *) scene;

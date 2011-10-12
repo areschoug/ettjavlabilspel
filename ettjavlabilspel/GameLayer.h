@@ -9,15 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioServices.h>
 
+#import "SceneManager.h"
+
 #import "cocos2d.h"
 #import "Car.h"
 #import "Hole.h"
-#import "HelloWorldLayer.h"
 #import "Game.h"
 #import "Entity.h"
 #import "Alcohol.h"
 #import "DestroyedCar.h"
-#import "GameOverScene.h"
 
 #import "PauseLayer.h"
 

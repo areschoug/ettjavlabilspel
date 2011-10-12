@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
-#import "HelloWorldLayer.h"
+#import "SceneManager.h"
 #import "Game.h"
 
-@interface GameOverScene : CCLayer {
+@interface GameOverLayer : CCLayer {
     
 }
 
