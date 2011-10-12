@@ -3,8 +3,7 @@
 //  ettjavlabilspel
 //
 //  Created by Andreas Areschoug.
-//  sdssd sadas d asd  dsfdsfsdf 
-
+//  sdssd sada
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
