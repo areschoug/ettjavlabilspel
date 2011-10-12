@@ -16,17 +16,6 @@
 
 @implementation GameOverLayer
 
-+(CCScene *) scene
-{
-    CCScene *scene = [CCScene node];
-    
-    GameOverLayer *layer = [GameOverLayer node];
-    
-    [scene addChild:layer];
-    
-    return scene;
-}
-
 -(id)init
 {
     if((self=[super init]))

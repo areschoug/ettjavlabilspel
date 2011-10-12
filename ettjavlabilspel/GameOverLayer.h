@@ -15,7 +15,6 @@
     
 }
 
-+(CCScene *) scene;
 -(void)saveHighScore;
 
 @end

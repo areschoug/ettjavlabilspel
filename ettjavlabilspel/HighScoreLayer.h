@@ -13,5 +13,4 @@
 @interface HighScoreLayer : CCLayer {
     
 }
-+(CCScene *) scene;
 @end

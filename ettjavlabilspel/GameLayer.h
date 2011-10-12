@@ -37,6 +37,5 @@
 
 
 -(void) menuItemClicked:(id) sender;
-+(CCScene *) scene;
 
 @end

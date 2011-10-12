@@ -18,18 +18,6 @@
 
 @implementation HighScoreLayer
 
-
-+(CCScene *) scene
-{
-    CCScene *scene = [CCScene node];
-    
-    HighScoreLayer *layer = [HighScoreLayer node];
-    
-    [scene addChild:layer];
-    
-    return scene;
-}
-
 -(id)init
 {
     if((self=[super init])){

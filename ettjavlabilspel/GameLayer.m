@@ -19,17 +19,6 @@ CCSprite *paus;
 bool drunk;
 int drunkTimer;
 
-+(CCScene *) scene
-{
-    CCScene *scene = [CCScene node];
-    
-    GameLayer *layer = [GameLayer node];
-    
-    [scene addChild:layer];
-    
-    return scene;
-}
-
 -(id)init
 {
     if((self=[super init])){
