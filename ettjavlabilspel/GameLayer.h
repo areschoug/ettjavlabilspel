@@ -19,8 +19,6 @@
 #import "Alcohol.h"
 #import "DestroyedCar.h"
 
-#import "PauseLayer.h"
-
 @interface GameLayer : CCLayer {
     Car *car;
     Hole *hole;

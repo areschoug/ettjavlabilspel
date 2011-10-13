@@ -18,8 +18,8 @@
         
     CCMenuItemImage *newGameButton = [CCMenuItemImage itemFromNormalImage:@"menu-newgame.png" selectedImage:@"menu-newgame.png" target:self selector:@selector(onMenuItemClicked:)];
     CCMenuItemImage *highScoreButton = [CCMenuItemImage itemFromNormalImage:@"menu-highscore.png" selectedImage:@"menu-highscore.png" target:self selector:@selector(onMenuItemClicked:)];
-    CCMenuItemImage *settingsButton = [CCMenuItemImage itemFromNormalImage:@"menu-settings.png" selectedImage:@"menu-highscore.png" target:self selector:@selector(onMenuItemClicked:)];
-    CCMenuItemImage *instructionsButton = [CCMenuItemImage itemFromNormalImage:@"menu-instructions.png" selectedImage:@"menu-highscore.png" target:self selector:@selector(onMenuItemClicked:)];
+    CCMenuItemImage *settingsButton = [CCMenuItemImage itemFromNormalImage:@"menu-settings.png" selectedImage:@"menu-settings.png" target:self selector:@selector(onMenuItemClicked:)];
+    CCMenuItemImage *instructionsButton = [CCMenuItemImage itemFromNormalImage:@"menu-instructions.png" selectedImage:@"menu-instructions.png" target:self selector:@selector(onMenuItemClicked:)];
     [newGameButton setTag:1];
     [highScoreButton setTag:2];
     [settingsButton setTag:3];
@@ -34,7 +34,16 @@
 
     [self addChild:menu];
     
-    [[SimpleAudioEngine sharedEngine]playBackgroundMusic:@"menu_music.mp3"];
+    if(![Game sharedGame].music)
+    {
+        [[SimpleAudioEngine sharedEngine]playBackgroundMusic:@"menu_music.mp3"];
+        [Game sharedGame].music = YES;
+    }
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"mute"])
+        [[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:0];
+    else
+        [[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:1];
     
     return self;
 }
@@ -50,8 +59,10 @@
             [SceneManager goHighScore];
             break;
         case 3:
+            [SceneManager goSettings];
             break;
         case 4:
+            [SceneManager goInstructions];
             break;
         default:
             break;

@@ -16,12 +16,16 @@
 static Game* _sharedGame = nil;
 
 //CURENT STATE
-@synthesize drunk;
 @synthesize gameSpeed;
 @synthesize currentScore;
+@synthesize drunk;
 @synthesize music;
+@synthesize mute;
+@synthesize sfx;
+@synthesize started;
 
 //POSITION
+@synthesize backgroundPosition;
 @synthesize carPosition;
 @synthesize holePosition;
 @synthesize bottlePosition;
@@ -56,18 +60,21 @@ static Game* _sharedGame = nil;
     //SPEED
     self.gameSpeed = 1;
 
+    //CURRENTSCORE
+    self.currentScore = 0;
+    
     //DRUNK
     self.drunk = NO;
     
     //MUSIC
     self.music = NO;
     
-    //CURRENTSCORE
-    self.currentScore = 0;
-    
     //CAR
     self.carPosition = ccp(160,50);
 
+    //BACKGROUND
+    self.backgroundPosition = ccp(160, 240-20);
+    
     //HOLE
     Hole *hole = [[Hole alloc] init];
     self.holePosition = [hole getStartPositions:100];
@@ -89,7 +96,6 @@ static Game* _sharedGame = nil;
 
 -(int)highestScore:(NSArray *)highScore
 {
-//    NSArray *sorted = [[NSArray alloc]initWithArray:[[NSUserDefaults standardUserDefaults]arrayForKey:@"highScoreArray"]];
     NSArray *sortedArray = [highScore sortedArrayUsingSelector:@selector(compare:)];
     int sortedArrayCount = [sortedArray count];
     int retrunInt = [[sortedArray objectAtIndex:(sortedArrayCount-1)]intValue];
@@ -97,6 +103,17 @@ static Game* _sharedGame = nil;
     return retrunInt;
 }
 
+-(void)startGame
+{
+    self.started = YES;
+    //MUSIC
+    self.music = NO;
+    self.mute = NO;
+    
+    //SOUND EFFECTS
+    self.sfx = YES;
+    NSLog(@"START GAME KÖR");
+}
 
 -(void)dealloc
 {

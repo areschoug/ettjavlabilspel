@@ -34,6 +34,34 @@
     [SceneManager go:layer];
 }
 
++(void) goSettings
+{
+    CCLayer *layer = [SettingsLayer node];
+    [SceneManager go:layer];
+
+}
+
++(void) goInstructions
+{
+    CCLayer *layer = [InstructionsLayer node];
+    [SceneManager go:layer];
+
+}
+
++(void)goPaus
+{
+    CCLayer *layer = [PauseLayer node];
+    [SceneManager go:layer];
+
+}
+
++(void)goPausSettings
+{
+    CCLayer *layer = [PauseSettingsLayer node];
+    [SceneManager go:layer];
+    
+}
+
 +(void) go:(CCLayer *)layer
 {
     CCDirector *director = [CCDirector sharedDirector];

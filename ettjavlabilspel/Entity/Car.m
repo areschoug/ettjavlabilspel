@@ -14,6 +14,9 @@
     int width = [self boundingBox].size.width;
     int height = [self boundingBox].size.height;
     
+    int oldPosX = self.position.x;
+    int oldPosY = self.position.y;
+    
     int newPosX = self.position.x+(accX*100);
     int newPosY = self.position.y+((accY)*100);
     
@@ -48,6 +51,18 @@
         donePosY = newPosY;
     }
     
+    NSLog(@"%i < %i",oldPosX, donePosX);
+    
+    if (oldPosX+10 < donePosX ||oldPosX-10 > donePosX ) {
+        NSLog(@"DEG");
+        [[SimpleAudioEngine sharedEngine] playEffect:@"tirebreak.mp3"];
+    }
+    
+    if (oldPosY+10 < donePosY){
+        NSLog(@"KLE");
+        [[SimpleAudioEngine sharedEngine] playEffect:@"accelerate.mp3"];    
+    }
+    
     [self runAction:[CCMoveTo actionWithDuration:1/60 position:ccp(donePosX, donePosY)]];
     
     //ROTATION
@@ -79,23 +94,28 @@
 
 
     }
-    NSLog(@"carRotation - %f", carRotation);
     [self runAction:[CCRotateTo actionWithDuration:1/10 angle:carRotation]];    
 
 }
 
 -(float)scoreMultiplier
 {
-    //CGSize screenSize = [CCDirector sharedDirector].winSize;
+    int carFeildPosition = self.position.y/5;
+    float result;
     
-    //int feilds = (screenSize.height/5)/64;
+    if (carFeildPosition < 20) {
+        result = 1.0;
+    }else if(carFeildPosition >= 20 && carFeildPosition < 40){
+        result = 1.2;
+    }else if(carFeildPosition >= 40 && carFeildPosition < 60){
+        result = 1.4;
+    }else if(carFeildPosition >= 60 && carFeildPosition < 80){
+        result = 1.6;
+    }else if(carFeildPosition >= 80){
+        result = 1.8;
+    }
     
-    //int carPosito
-    
-    //switch(self.position.y)
-    
-    
-    return 0.2;
+    return result;
 }
 
 -(void)dealloc

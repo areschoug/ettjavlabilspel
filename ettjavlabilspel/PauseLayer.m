@@ -8,7 +8,7 @@
 //  options to quit,resume and settings.
 //
 //  TODO:
-//  - Pretty much everything. You can do it
+//  -work work
 
 #import "PauseLayer.h"
 
@@ -17,22 +17,52 @@
 
 -(id)init
 {
-    self = [super init];
-    if (!self) {
-        return nil;
+    if((self=[super init])){
+
+        background = [[CCSprite alloc]initWithFile:@"road.png"];
+        background.position = [Game sharedGame].backgroundPosition;
+        
+        
+        CCMenuItemImage *returnButton = [CCMenuItemImage itemFromNormalImage:@"menu-continue.png" selectedImage:@"menu-continue.png" target:self selector:@selector(menuItemClicked:)];
+        
+        CCMenuItemImage *settingsButton = [CCMenuItemImage itemFromNormalImage:@"menu-settings.png" selectedImage:@"menu-settings.png" target:self selector:@selector(menuItemClicked:)];
+        
+        CCMenuItemImage *menuButton = [CCMenuItemImage itemFromNormalImage:@"menu-newgame.png" selectedImage:@"menu-newgame.png" target:self selector:@selector(menuItemClicked:)];
+        
+        returnButton.position = ccp(0, 100);
+        settingsButton.position = ccp(0, 0);
+        menuButton.position = ccp(0, -100);
+        
+        [returnButton setTag:1];
+        [settingsButton setTag:2];
+        [menuButton setTag:3];
+        
+        menu = [CCMenu menuWithItems:returnButton,settingsButton,menuButton, nil];
+        
+        [self addChild:background];
+        [self addChild:menu];
     }
-    
-    CCMenuItemImage *pausButton = [CCMenuItemImage itemFromNormalImage:@"pause.png" selectedImage:@"pause.png" target:self selector:@selector(menuItemClicked:)];
-    menu = [CCMenu menuWithItems:pausButton, nil];
-    menu.position = ccp(170, 455);
-    
-    [self addChild:menu];
     
     return self;
 }
 
 -(void)menuItemClicked:(id)sender{
-    NSLog(@"heeeyyeyeye");
+    
+
+    switch ([sender tag]) {
+        case 1:
+            [SceneManager goGame];
+            break;
+        case 2:
+            [SceneManager goPausSettings];
+            break;
+        case 3:
+            [SceneManager goMenu];
+            break;
+        default:
+            break;
+    }
 }
+
 
 @end

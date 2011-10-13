@@ -16,11 +16,15 @@
 {
     //STATE
     @public int gameSpeed;
-    @public BOOL drunk;
     @public int currentScore;
+    @public BOOL drunk;
     @public BOOL music;
+    @public BOOL mute;
+    @public BOOL sfx;
+    @public BOOL started;
     
     //POSITION
+    @public CGPoint backgroundPosition;
     @public CGPoint carPosition;
     @public CGPoint holePosition;
     @public CGPoint bottlePosition;
@@ -29,11 +33,15 @@
 
 //STATE
 @property(readwrite,assign) int gameSpeed;
-@property(readwrite,assign) BOOL drunk;
 @property(readwrite,assign) int currentScore;
+@property(readwrite,assign) BOOL drunk;
 @property(readwrite,assign) BOOL music;
+@property(readwrite,assign) BOOL mute;
+@property(readwrite,assign) BOOL sfx;
+@property(readwrite,assign) BOOL started;
 
 //POSITION
+@property(readwrite,assign) CGPoint backgroundPosition;
 @property(readwrite,assign) CGPoint carPosition;
 @property(readwrite,assign) CGPoint holePosition;
 @property(readwrite,assign) CGPoint bottlePosition;
@@ -42,5 +50,6 @@
 
 +(Game*)sharedGame;
 -(void)resetGame;
+-(void)startGame;
 -(int)highestScore:(NSArray *)highScore;
 @end

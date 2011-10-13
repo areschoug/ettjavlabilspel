@@ -24,6 +24,13 @@
         //SAVE HIGHSCORE
         [self saveHighScore];
         
+        //MUSIC
+        if(![Game sharedGame].music)
+        {
+            [[SimpleAudioEngine sharedEngine]playBackgroundMusic:@"menu_music.mp3"];
+            [Game sharedGame].music = YES;
+        }
+        
         //MENU
         CCMenu *menu;
         CCMenuItemImage *backButton = [CCMenuItemImage itemFromNormalImage:@"pause.png" selectedImage:@"pause.png" target:self selector:@selector(backButtonClicked:)];

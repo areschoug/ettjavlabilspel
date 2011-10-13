@@ -10,7 +10,14 @@
 		291390961433D87800F490C6 /* GameOverLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 291390951433D87800F490C6 /* GameOverLayer.m */; };
 		292A6500142A79C800EB17E7 /* menu-continue.png in Resources */ = {isa = PBXBuildFile; fileRef = 292A64FE142A79C800EB17E7 /* menu-continue.png */; };
 		292A6501142A79C800EB17E7 /* menu-newgame.png in Resources */ = {isa = PBXBuildFile; fileRef = 292A64FF142A79C800EB17E7 /* menu-newgame.png */; };
+		293BBAAE1446EB1100551A5A /* tirebreak.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 293BBAAD1446EB1100551A5A /* tirebreak.mp3 */; };
+		293BBAB01446EB5E00551A5A /* accelerate.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 293BBAAF1446EB5E00551A5A /* accelerate.mp3 */; };
+		293BBAB31447079200551A5A /* PauseSettingsLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 293BBAB21447079200551A5A /* PauseSettingsLayer.m */; };
 		295695621420CB49006E90A1 /* Car.m in Sources */ = {isa = PBXBuildFile; fileRef = 295695611420CB49006E90A1 /* Car.m */; };
+		295D4BD714459B0500B5EA3F /* SettingsLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 295D4BD614459B0500B5EA3F /* SettingsLayer.m */; };
+		295D4BDB14459B1800B5EA3F /* InstructionsLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 295D4BDA14459B1800B5EA3F /* InstructionsLayer.m */; };
+		295D4BDE14459F3100B5EA3F /* no.png in Resources */ = {isa = PBXBuildFile; fileRef = 295D4BDC14459F3100B5EA3F /* no.png */; };
+		295D4BDF14459F3100B5EA3F /* yes.png in Resources */ = {isa = PBXBuildFile; fileRef = 295D4BDD14459F3100B5EA3F /* yes.png */; };
 		2981E86B143FD92800F4069F /* menu_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2981E869143FD92800F4069F /* menu_music.mp3 */; };
 		2981E86C143FD92800F4069F /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2981E86A143FD92800F4069F /* music.mp3 */; };
 		2988430714320DA00043C644 /* HighScoreLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2988430614320DA00043C644 /* HighScoreLayer.m */; };
@@ -157,8 +164,18 @@
 		291390951433D87800F490C6 /* GameOverLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverLayer.m; sourceTree = "<group>"; };
 		292A64FE142A79C800EB17E7 /* menu-continue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-continue.png"; sourceTree = "<group>"; };
 		292A64FF142A79C800EB17E7 /* menu-newgame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-newgame.png"; sourceTree = "<group>"; };
+		293BBAAD1446EB1100551A5A /* tirebreak.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tirebreak.mp3; sourceTree = "<group>"; };
+		293BBAAF1446EB5E00551A5A /* accelerate.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = accelerate.mp3; sourceTree = "<group>"; };
+		293BBAB11447079200551A5A /* PauseSettingsLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PauseSettingsLayer.h; sourceTree = "<group>"; };
+		293BBAB21447079200551A5A /* PauseSettingsLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseSettingsLayer.m; sourceTree = "<group>"; };
 		295695601420CB49006E90A1 /* Car.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Car.h; sourceTree = "<group>"; };
 		295695611420CB49006E90A1 /* Car.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Car.m; sourceTree = "<group>"; };
+		295D4BD514459B0500B5EA3F /* SettingsLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsLayer.h; sourceTree = "<group>"; };
+		295D4BD614459B0500B5EA3F /* SettingsLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsLayer.m; sourceTree = "<group>"; };
+		295D4BD914459B1800B5EA3F /* InstructionsLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstructionsLayer.h; sourceTree = "<group>"; };
+		295D4BDA14459B1800B5EA3F /* InstructionsLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionsLayer.m; sourceTree = "<group>"; };
+		295D4BDC14459F3100B5EA3F /* no.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no.png; sourceTree = "<group>"; };
+		295D4BDD14459F3100B5EA3F /* yes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yes.png; sourceTree = "<group>"; };
 		2976E7B8143E618E008210BA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = /Users/andreas_areschoug/Projekt/iPhone/Cocos2D/ettjavlabilspel/ettjavlabilspel/Resources/Info.plist; sourceTree = "<absolute>"; };
 		2981E869143FD92800F4069F /* menu_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = menu_music.mp3; sourceTree = "<group>"; };
 		2981E86A143FD92800F4069F /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
@@ -451,6 +468,8 @@
 		2976E7B7143E5A90008210BA /* Sound */ = {
 			isa = PBXGroup;
 			children = (
+				293BBAAD1446EB1100551A5A /* tirebreak.mp3 */,
+				293BBAAF1446EB5E00551A5A /* accelerate.mp3 */,
 				2981E869143FD92800F4069F /* menu_music.mp3 */,
 				2981E86A143FD92800F4069F /* music.mp3 */,
 			);
@@ -463,6 +482,8 @@
 			children = (
 				29A6C38E144518EF0009A083 /* menu-instructions.png */,
 				29A6C39214451A8A0009A083 /* menu-highscore.png */,
+				295D4BDC14459F3100B5EA3F /* no.png */,
+				295D4BDD14459F3100B5EA3F /* yes.png */,
 				29A6C38F144518EF0009A083 /* menu-settings.png */,
 				292A64FE142A79C800EB17E7 /* menu-continue.png */,
 				292A64FF142A79C800EB17E7 /* menu-newgame.png */,
@@ -508,14 +529,20 @@
 			children = (
 				29A6C37E1445033F0009A083 /* SceneManager.h */,
 				29A6C37F1445033F0009A083 /* SceneManager.m */,
+				29A6C382144503A50009A083 /* MenuLayer.h */,
+				29A6C383144503A50009A083 /* MenuLayer.m */,
 				291390941433D87800F490C6 /* GameOverLayer.h */,
 				291390951433D87800F490C6 /* GameOverLayer.m */,
 				2988430514320DA00043C644 /* HighScoreLayer.h */,
 				2988430614320DA00043C644 /* HighScoreLayer.m */,
-				29A6C382144503A50009A083 /* MenuLayer.h */,
-				29A6C383144503A50009A083 /* MenuLayer.m */,
 				298ABAD4143DB32A00DC306A /* PauseLayer.h */,
 				298ABAD5143DB32A00DC306A /* PauseLayer.m */,
+				293BBAB11447079200551A5A /* PauseSettingsLayer.h */,
+				293BBAB21447079200551A5A /* PauseSettingsLayer.m */,
+				295D4BD514459B0500B5EA3F /* SettingsLayer.h */,
+				295D4BD614459B0500B5EA3F /* SettingsLayer.m */,
+				295D4BD914459B1800B5EA3F /* InstructionsLayer.h */,
+				295D4BDA14459B1800B5EA3F /* InstructionsLayer.m */,
 			);
 			name = Layers;
 			sourceTree = "<group>";
@@ -946,7 +973,7 @@
 		29BB9F98141EB79D003A659B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0410;
+				LastUpgradeCheck = 0420;
 			};
 			buildConfigurationList = 29BB9F9B141EB79D003A659B /* Build configuration list for PBXProject "ettjavlabilspel" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -996,6 +1023,10 @@
 				29A6C390144518EF0009A083 /* menu-instructions.png in Resources */,
 				29A6C391144518EF0009A083 /* menu-settings.png in Resources */,
 				29A6C39314451A8A0009A083 /* menu-highscore.png in Resources */,
+				295D4BDE14459F3100B5EA3F /* no.png in Resources */,
+				295D4BDF14459F3100B5EA3F /* yes.png in Resources */,
+				293BBAAE1446EB1100551A5A /* tirebreak.mp3 in Resources */,
+				293BBAB01446EB5E00551A5A /* accelerate.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1115,6 +1146,9 @@
 				298ABAD6143DB32A00DC306A /* PauseLayer.m in Sources */,
 				29A6C3801445033F0009A083 /* SceneManager.m in Sources */,
 				29A6C384144503A50009A083 /* MenuLayer.m in Sources */,
+				295D4BD714459B0500B5EA3F /* SettingsLayer.m in Sources */,
+				295D4BDB14459B1800B5EA3F /* InstructionsLayer.m in Sources */,
+				293BBAB31447079200551A5A /* PauseSettingsLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1167,7 +1201,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ettjavlabilspel/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = ettjavlabilspel/Resources/Info.plist;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = ettjavlabilspel;
@@ -1185,7 +1219,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ettjavlabilspel/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = ettjavlabilspel/Resources/Info.plist;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = ettjavlabilspel;

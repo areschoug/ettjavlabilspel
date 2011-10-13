@@ -1,6 +1,10 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
+#import "SimpleAudioEngine.h"
+#import "CDAudioManager.h"
+#import "CocosDenshion.h"
+
 @interface Car : CCSprite {
     CGPoint carPosition;
     NSString *spriteImage;

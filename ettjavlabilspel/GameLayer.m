@@ -30,7 +30,19 @@ int drunkTimer;
         [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
         
         //MUSIC
-        [[SimpleAudioEngine sharedEngine]playBackgroundMusic:@"music.mp3"];
+        if(![Game sharedGame].music)
+        {
+            [[SimpleAudioEngine sharedEngine]playBackgroundMusic:@"music.mp3"];
+        }
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"mute"])
+            [[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:0];
+        else
+            [[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:1];
+        
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"muteSfx"])
+            [[SimpleAudioEngine sharedEngine] setEffectsVolume:0];
+        else
+            [[SimpleAudioEngine sharedEngine] setEffectsVolume:1];
         
         //MENU
         CCMenuItemImage *pausButton = [CCMenuItemImage itemFromNormalImage:@"pause.png" selectedImage:@"pause.png" target:self selector:@selector(menuItemClicked:)];
@@ -43,7 +55,7 @@ int drunkTimer;
         
         //init background
         background = [[Entity alloc]initWithFile:@"road.png"];
-        background.position=ccp(160, 240-20);
+        background.position = [Game sharedGame].backgroundPosition;
         
         //init car
         car = [[Car alloc] initWithFile:@"bil.png"];
@@ -82,7 +94,7 @@ int drunkTimer;
     
     float accX = ceilf([acceleration x] * 100 + 0.5) / 100;
     float accY = ceilf([acceleration y] * 100 + 0.5) / 100;    
-
+    
 
     //If drunk revert the steering(right-left) by multiply with -1 
     if(drunk){
@@ -91,7 +103,22 @@ int drunkTimer;
     }
     
     [car moveX:accX moveY:accY];
+    /*
+     int oldPosX = car.position.x;
+     int oldPosY = car.position.y;
+     
+     if (oldPosX+10 < car.position.x || oldPosX-10 > car.position.x ) {
+        NSLog(@"abc");
+        [[SimpleAudioEngine sharedEngine] playEffect:@"tirebreak.ogg"];
+    }
     
+    NSLog(@"%i+10 < %f",oldPosY,car.position.y);
+    
+    if (oldPosY < car.position.y){
+        NSLog(@"deg");
+        [[SimpleAudioEngine sharedEngine] playEffect:@"accelerate.ogg"];    
+    }
+    */
     //Collision by car results in a game ending tragedy
     if([destroyedCar collision:car] || [hole collision:car]){
         [Game sharedGame].gameSpeed = 0;
@@ -137,12 +164,14 @@ int drunkTimer;
     [Game sharedGame].drunk = drunk;
     [Game sharedGame].currentScore = score/10;
     //POSITION
+    [Game sharedGame].backgroundPosition = background.position;
     [Game sharedGame].carPosition = car.position;
     [Game sharedGame].holePosition = hole.position;
     [Game sharedGame].bottlePosition = bottle.position;
-    [Game sharedGame].destroyedCarPosition = destroyedCar.position; 
+    [Game sharedGame].destroyedCarPosition = destroyedCar.position;
+    
     //Change the scene
-    [SceneManager goMenu];
+    [SceneManager goPaus];
     
 }
 
@@ -175,7 +204,7 @@ int drunkTimer;
     [destroyedCar   goX:0   goY:-gameSpeed];
     
     //CURRENTSCORE
-    score += 1;
+    score += (1 * [car scoreMultiplier]);
     [scoreLabel setString:[NSString stringWithFormat:@"%i",score/10]];
 }
 

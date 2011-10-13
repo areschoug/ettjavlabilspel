@@ -1,5 +1,5 @@
 //
-//  PauseLayer.h
+//  InstructionsLayer.h
 //  ettjavlabilspel
 //
 //  Created by Andreas Areschoug.
@@ -9,9 +9,10 @@
 #import "cocos2d.h"
 #import "SceneManager.h"
 
-@interface PauseLayer : CCLayer {
-    CCMenu *menu;
-    CCSprite *background;
+@interface InstructionsLayer : CCLayer {
+    
 }
+
+-(void) backButtonClicked:(id)sender;
 
 @end
