@@ -16,8 +16,14 @@
 
 @interface MenuLayer : CCLayer
 {
+    
+    CCSprite *background;
+    CCSprite *backgroundCar;
+    CCTexture2D *burningCarTexture1;
+    CCTexture2D *burningCarTexture2;
+    int texture;
 }
 
 -(void)onMenuItemClicked:(id)sender;
-
+-(void)burningCar:(ccTime)dt;
 @end

@@ -10,7 +10,7 @@
 #import "SceneManager.h"
 
 @interface InstructionsLayer : CCLayer {
-    
+    CCSprite *background;
 }
 
 -(void) backButtonClicked:(id)sender;

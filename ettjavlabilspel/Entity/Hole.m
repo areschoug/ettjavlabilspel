@@ -13,7 +13,7 @@
         [startingPoints addObject:@"160"];
         [startingPoints addObject:@"220"];
         [startingPoints addObject:@"280"];
-        
+        startRate = 300;
     }
     return self;
 }

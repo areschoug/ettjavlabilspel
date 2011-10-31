@@ -15,6 +15,7 @@
 #import "InstructionsLayer.h"
 #import "PauseLayer.h"
 #import "PauseSettingsLayer.h"
+#import "CarSelectLayer.h"
 
 @interface SceneManager : NSObject
 {
@@ -23,12 +24,14 @@
 
 +(void) goMenu;
 +(void) goGame;
++(void) goCarSelect;
 +(void) goHighScore;
 +(void) goGameOver;
 +(void) goSettings;
 +(void) goInstructions;
 +(void) goPaus;
 +(void) goPausSettings;
+
 
 +(void) go: (CCLayer *) layer;
 +(CCScene *)warp:(CCLayer *) layer;

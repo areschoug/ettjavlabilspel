@@ -8,7 +8,6 @@
 //
 //  TODO:
 //  - implement nice graphics 
-//  - less than five highscore (fix)
 //  - global highscore and your position in the world highscore
 //  - possible your friends highscore
 //  - possible post score to twitter,facebook or something.
@@ -22,26 +21,39 @@
 {
     if((self=[super init])){
 
+        background = [[CCSprite alloc] initWithFile:@"mainscreen-background.png"];
+        background.position = ccp(160, 240);
+        [self addChild:background];
+        [background release];
+        
         NSArray *highScores,*sorted;
         highScores = [[NSUserDefaults standardUserDefaults]arrayForKey:@"highScoreArray"];
         sorted = [highScores sortedArrayUsingSelector:@selector(compare:)];
         int distance = 400;
         
-        for (int i = ([sorted count] - 1); ([sorted count]-6) < i; i--) {
-            distance -= 50;
-            
-            CCLabelAtlas *scoreLabel = [CCLabelAtlas labelWithString:[NSString stringWithFormat:@"%@", [sorted objectAtIndex:i]] charMapFile:@"fps_images.png" itemWidth:16 itemHeight:48 startCharMap:'.'];
-            scoreLabel.position = ccp(15, (distance));
-            [self addChild:scoreLabel];
+        if([sorted count] < 6){
+            for (int i = ([sorted count] - 1); [sorted count] > i; i--) {
+                distance -= 50;
+                CCLabelTTF *scoreLable = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%@",[sorted objectAtIndex:i]] fontName:@"helvetica" fontSize:22];
+                scoreLable.position = ccp(160, (distance));
+                [self addChild:scoreLable];
+               
+            }
+        } else {
+            for (int i = ([sorted count] - 1); ([sorted count] - 6) < i; i--) {
+                distance -= 50;
+                CCLabelTTF *scoreLable = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%@",[sorted objectAtIndex:i]] fontName:@"helvetica" fontSize:22];
+                scoreLable.position = ccp(160, (distance));
+                [self addChild:scoreLable];
+            }
         }
-        
         
         CCMenu *menu;
         
-        CCMenuItemImage *backButton = [CCMenuItemImage itemFromNormalImage:@"pause.png" selectedImage:@"pause.png" target:self selector:@selector(backButtonClicked:)];
-                
+        CCMenuItemImage *backButton = [CCMenuItemImage itemFromNormalImage:@"back-button1.png" selectedImage:@"back-button2.png" target:self selector:@selector(backButtonClicked:)];
+        backButton.position = ccp(250, 420);        
         menu = [CCMenu menuWithItems:backButton, nil];
-        menu.position = ccp(270, 455);
+        menu.position = ccp(0, 0);;
 
         [self addChild:menu];
     }
@@ -52,8 +64,7 @@
     [SceneManager goMenu];
 }
 
--(void)dealloc{
-    NSLog(@"DEALLOC - HIGH SCORE SCENE ENDED %@",self);
+- (void)dealloc {
     [super dealloc];
 }
 

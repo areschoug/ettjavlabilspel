@@ -15,21 +15,27 @@
     self = [super init];
     if (self) {
         
+        background = [[CCSprite alloc] initWithFile:@"mainscreen-background.png"];
+        background.position = ccp(160, 240);
+        [self addChild:background];
+        [background release];
+        
         CCMenu *menu;
 
         CCLabelTTF *musicLabel = [CCLabelTTF labelWithString:[self checkMusic] fontName:@"Helvetica" fontSize:24];
         music = [CCMenuItemLabel itemWithLabel:musicLabel target:self selector:@selector(musicButtonClicked:)];
-        music.position = ccp(0, 100);
+        music.position = ccp(160, 260);
         
         CCLabelTTF *sfxLabel = [CCLabelTTF labelWithString:[self checkSfx] fontName:@"Helvetica" fontSize:24];
         sfx = [CCMenuItemLabel itemWithLabel:sfxLabel target:self selector:@selector(sfxButtonClicked:)];
-        sfx.position = ccp(0, 0);
+        sfx.position = ccp(160, 220);
         
-        CCLabelTTF *backLabel = [CCLabelTTF labelWithString:@"Back" fontName:@"Helvetica" fontSize:24];
-        CCMenuItemLabel *back = [CCMenuItemLabel itemWithLabel:backLabel target:self selector:@selector(backButtonClicked:)];
-        back.position = ccp(100, 200);
+        CCMenuItemImage *back = [CCMenuItemImage itemFromNormalImage:@"back-button1.png" selectedImage:@"back-button2.png" target:self selector:@selector(backButtonClicked:)];
+        back.position = ccp(250, 420);
         
         menu = [CCMenu menuWithItems:music,sfx,back, nil];
+
+        menu.position = ccp(0, 0);
         [self addChild:menu];
     }
     return self;
@@ -94,6 +100,10 @@
         sfxString = @"Sfx: On";
     
     return sfxString;
+}
+
+- (void)dealloc {
+    [super dealloc];
 }
 
 @end

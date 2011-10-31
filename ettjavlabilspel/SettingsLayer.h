@@ -13,7 +13,7 @@
 @interface SettingsLayer : CCLayer {
     CCMenuItemLabel *music;
     CCMenuItemLabel *sfx;
-
+    CCSprite *background;
 }
 
 -(NSString *)checkMusic;

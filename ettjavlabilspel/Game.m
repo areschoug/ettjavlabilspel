@@ -18,7 +18,9 @@ static Game* _sharedGame = nil;
 //CURENT STATE
 @synthesize gameSpeed;
 @synthesize currentScore;
-@synthesize drunk;
+@synthesize carColor;
+@synthesize state;
+@synthesize stateTimer;
 @synthesize music;
 @synthesize mute;
 @synthesize sfx;
@@ -30,8 +32,12 @@ static Game* _sharedGame = nil;
 @synthesize holePosition;
 @synthesize bottlePosition;
 @synthesize destroyedCarPosition;
-
-
+@synthesize inviciblePosition;
+@synthesize smallPosition;
+@synthesize gunPosition;
+@synthesize bulletPosition;
+@synthesize fastPosition;
+@synthesize slowPosition;
 
 +(Game*)sharedGame
 {
@@ -63,8 +69,8 @@ static Game* _sharedGame = nil;
     //CURRENTSCORE
     self.currentScore = 0;
     
-    //DRUNK
-    self.drunk = NO;
+    //STATE
+    self.state = 0;
     
     //MUSIC
     self.music = NO;
@@ -77,21 +83,55 @@ static Game* _sharedGame = nil;
     
     //HOLE
     Hole *hole = [[Hole alloc] init];
-    self.holePosition = [hole getStartPositions:100];
+    self.holePosition = [hole getStartPositions:hole.startRate];
     [hole release];
     hole =nil;
     
     //DESTROYED CAR
     DestroyedCar *destroyedCar = [[DestroyedCar alloc] init];
-    self.destroyedCarPosition = [destroyedCar getStartPositions:1000];
+    self.destroyedCarPosition = [destroyedCar getStartPositions:destroyedCar.startRate];
     [destroyedCar release];
     destroyedCar = nil;
     
     //BOTTLE
     Alcohol *bottle = [[Alcohol alloc] init];
-    self.bottlePosition = [bottle getStartPositions:1000];
+    self.bottlePosition = [bottle getStartPositions:bottle.startRate];
     [bottle release];
     bottle = nil;
+    
+    //INVINVIBLE
+    Invincible *invicible = [[Invincible alloc] init];
+    self.inviciblePosition = [invicible getStartPositions:invicible.startRate];
+    [invicible release];
+    invicible = nil;
+    
+    //SMALL
+    Small *small = [[Small alloc] init];
+    self.smallPosition = [small getStartPositions:small.startRate];
+    [small release];
+    small = nil;
+    
+    //GUN
+    Gun *gun = [[Gun alloc] init];
+    self.gunPosition = [gun getStartPositions:gun.startRate];
+    [gun release];
+    gun = nil;
+    
+    //BULLET
+    self.bulletPosition = ccp(1000, 1000);
+    
+    //SLOW
+    Slow *slow = [[Slow alloc] init];
+    self.slowPosition = [slow getStartPositions:slow.startRate];
+    [slow release];
+    slow = nil;
+    
+    //FAST
+    Fast *fast = [[Fast alloc] init];
+    self.fastPosition = [fast getStartPositions:fast.startRate];
+    [fast release];
+    fast = nil;
+    
 }
 
 -(int)highestScore:(NSArray *)highScore

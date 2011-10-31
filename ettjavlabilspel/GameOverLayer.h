@@ -11,9 +11,11 @@
 #import "Game.h"
 
 @interface GameOverLayer : CCLayer {
-    
+    CCSprite *background;
+    CCSprite *car;
+    CCSprite *destroyedCar;
+    CCSprite *hole;
 }
 
 -(void)saveHighScore;
-
 @end

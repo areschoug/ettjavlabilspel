@@ -20,6 +20,8 @@
 {
     if((self=[super init]))
     {
+        
+        NSLog(@"Game over layer init");
         [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
         //SAVE HIGHSCORE
         [self saveHighScore];
@@ -31,22 +33,49 @@
             [Game sharedGame].music = YES;
         }
         
+        //BACKGROUND
+        background = [[CCSprite alloc]initWithFile:@"road.png"];
+        background.position = [Game sharedGame].backgroundPosition;
+        [self addChild:background];
+        
+        //ENTITIES
+        hole = [[CCSprite alloc]initWithFile:@"hinder3.png"];
+        hole.position = [Game sharedGame].holePosition;
+        [self addChild:hole];
+        
+        destroyedCar = [[CCSprite alloc]initWithFile:@"dubbelhinder.png"];
+        destroyedCar.position = [Game sharedGame].destroyedCarPosition;
+        [self addChild:destroyedCar];
+
+        car = [[CCSprite alloc]initWithFile:@"car3-dead.png"];
+        car.position = [Game sharedGame].carPosition;
+        [self addChild:car];
+        
+        
         //MENU
         CCMenu *menu;
-        CCMenuItemImage *backButton = [CCMenuItemImage itemFromNormalImage:@"pause.png" selectedImage:@"pause.png" target:self selector:@selector(backButtonClicked:)];
-        menu = [CCMenu menuWithItems:backButton, nil];
-        menu.position = ccp(270, 455);
         
+        CCMenuItemImage *backButton = [CCMenuItemImage itemFromNormalImage:@"back-button1.png" selectedImage:@"back-button2.png" target:self selector:@selector(backButtonClicked:)];
+        backButton.position = ccp(250, 420);        
+        
+
+        CCMenuItemImage *retryButton = [CCMenuItemImage itemFromNormalImage:@"retry-button1.png" selectedImage:@"retry-button2.png" target:self selector:@selector(retryButtonClicked:)];
+        retryButton.position = ccp(160,75);
+        
+        menu = [CCMenu menuWithItems:retryButton,backButton, nil];
+        menu.position = ccp(0, 0);
+
         //SCORELABLE
-        CCLabelAtlas *scoreLabel = [CCLabelAtlas labelWithString:[NSString stringWithFormat:@"%i",[Game sharedGame].currentScore] charMapFile:@"fps_images.png" itemWidth:16 itemHeight:48 startCharMap:'.'];
+
+
+        CCLabelTTF *scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%i",[Game sharedGame].currentScore] fontName:@"helvetica" fontSize:22];
+        
         scoreLabel.position = ccp(160, 240);
         
-        CCLabelAtlas *scoreLabel2 = [CCLabelAtlas labelWithString:[NSString stringWithFormat:@"%i",[[Game sharedGame]highestScore:[[NSUserDefaults standardUserDefaults]arrayForKey:@"highScoreArray"]]] charMapFile:@"fps_images.png" itemWidth:16 itemHeight:48 startCharMap:'.'];
+        CCLabelTTF *scoreLabel2 = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%i",[[Game sharedGame]highestScore:[[NSUserDefaults standardUserDefaults]arrayForKey:@"highScoreArray"]]] fontName:@"helvetica" fontSize:22];
+        
         scoreLabel2.color = ccc3(250, 0, 0);
         scoreLabel2.position = ccp(160, 200);
-
-        [scoreLabel setAnchorPoint:ccp(0.5f, 0.5f)];
-        [scoreLabel2 setAnchorPoint:ccp(0.5f, 0.5f)];
         
         if([Game sharedGame].currentScore == [[Game sharedGame]highestScore:[[NSUserDefaults standardUserDefaults]arrayForKey:@"highScoreArray"]]){
             id action = [CCScaleBy actionWithDuration:0.3 scale:1.1];
@@ -68,6 +97,12 @@
     [SceneManager goMenu];
 }
 
+-(void)retryButtonClicked:(id)sender
+{
+    [[Game sharedGame]resetGame];
+    [SceneManager goGame];
+}
+
 -(void)saveHighScore
 {
     int newScore = [Game sharedGame].currentScore;
@@ -82,7 +117,6 @@
 -(void)dealloc
 {
     NSLog(@"DEALLOC - GAME OVER SCENE %@",self);
-    
     [super dealloc];
 }
 @end

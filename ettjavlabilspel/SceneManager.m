@@ -21,6 +21,12 @@
     [SceneManager go: layer];
 }
 
++(void) goCarSelect
+{
+    CCLayer *layer = [CarSelectLayer node];
+    [SceneManager go: layer];
+}
+
 +(void) goHighScore
 {
     CCLayer *layer = [HighScoreLayer node];

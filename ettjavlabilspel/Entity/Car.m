@@ -14,15 +14,10 @@
     int width = [self boundingBox].size.width;
     int height = [self boundingBox].size.height;
     
-    int oldPosX = self.position.x;
     int oldPosY = self.position.y;
-    
-    int newPosX = self.position.x+(accX*100);
-    int newPosY = self.position.y+((accY)*100);
-    
+
     int donePosX;
     int donePosY;
-
 
     
     if(-0.05 < accX && 0.05 > accX){
@@ -33,6 +28,10 @@
     if(-0.05 < accY && accY < 0.05){
         accY=0;
     }
+    
+    
+    int newPosX = self.position.x+(accX*100);
+    int newPosY = self.position.y+((accY)*100);
     
     
     if(newPosX > screenSize.width-width/2){
@@ -51,15 +50,11 @@
         donePosY = newPosY;
     }
     
-    NSLog(@"%i < %i",oldPosX, donePosX);
-    
-    if (oldPosX+10 < donePosX ||oldPosX-10 > donePosX ) {
-        NSLog(@"DEG");
+    if (oldPosY-10 > donePosY  ) {
         [[SimpleAudioEngine sharedEngine] playEffect:@"tirebreak.mp3"];
     }
     
     if (oldPosY+10 < donePosY){
-        NSLog(@"KLE");
         [[SimpleAudioEngine sharedEngine] playEffect:@"accelerate.mp3"];    
     }
     
@@ -91,9 +86,9 @@
                 carRotation = 0;
             }
         }
-
-
     }
+    
+    
     [self runAction:[CCRotateTo actionWithDuration:1/10 angle:carRotation]];    
 
 }
@@ -120,7 +115,7 @@
 
 -(void)dealloc
 {
-    NSLog(@"CAR DEALOC - %p",self);
+    NSLog(@"DEALLOC CAR - %p",self);
     [spriteImage release];
     [super dealloc];
 

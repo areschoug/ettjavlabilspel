@@ -11,6 +11,6 @@
 #import "SceneManager.h"
 
 @interface HighScoreLayer : CCLayer {
-    
+    CCSprite *background;
 }
 @end

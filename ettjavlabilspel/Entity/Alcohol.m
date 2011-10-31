@@ -11,12 +11,13 @@
         [startingPoints addObject:@"160"];
         [startingPoints addObject:@"220"];
         [startingPoints addObject:@"280"];
+        startRate = 1000;
     }
     return self;
 }
 
 -(void)dealloc{
-    NSLog(@"DEALLOC HOLE - %p",self);
+    NSLog(@"DEALLOC ALCOHOLE - %p",self);
     [super dealloc];
 }
 
