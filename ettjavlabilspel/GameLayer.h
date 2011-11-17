@@ -30,6 +30,7 @@
 
 @interface GameLayer : CCLayer {
     Entity *background;
+    Entity *tunnel;
     Car *car;
     //OBSTACLE
     Hole *hole;
@@ -45,14 +46,23 @@
     //GUI
     CCLabelTTF *scoreLabel;
     CCMenu *menu;
+    CCMenu *pauseMenu;
+    CCMenuItemImage *musicButton;
+    CCMenuItemImage *sfxButton;
     
     int gameSpeed;
     int realGameSpeed;
     int score;
+    int changeTicker;
+    int level;
+    int repeatRate;
+    BOOL textureChanged;
     BOOL playing;
 }
 
 
 -(void) menuItemClicked:(id) sender;
+-(void) setTexture;
+-(void) saveState;
 
 @end

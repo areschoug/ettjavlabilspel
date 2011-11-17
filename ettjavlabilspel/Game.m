@@ -21,8 +21,10 @@ static Game* _sharedGame = nil;
 @synthesize carColor;
 @synthesize state;
 @synthesize stateTimer;
+@synthesize level;
+@synthesize repeatRate;
 @synthesize music;
-@synthesize mute;
+@synthesize musicPlaying;
 @synthesize sfx;
 @synthesize started;
 
@@ -38,6 +40,7 @@ static Game* _sharedGame = nil;
 @synthesize bulletPosition;
 @synthesize fastPosition;
 @synthesize slowPosition;
+@synthesize tunnelPosition;
 
 +(Game*)sharedGame
 {
@@ -72,14 +75,20 @@ static Game* _sharedGame = nil;
     //STATE
     self.state = 0;
     
-    //MUSIC
-    self.music = NO;
+    //LEVEL
+    self.level = 1;
     
+    //REPEAT RATE
+    self.repeatRate = 80;
+   
     //CAR
     self.carPosition = ccp(160,50);
 
     //BACKGROUND
     self.backgroundPosition = ccp(160, 240-20);
+    
+    //TUNNEL
+    self.tunnelPosition = ccp(160, 1500);
     
     //HOLE
     Hole *hole = [[Hole alloc] init];
@@ -148,7 +157,7 @@ static Game* _sharedGame = nil;
     self.started = YES;
     //MUSIC
     self.music = NO;
-    self.mute = NO;
+    self.musicPlaying = NO;
     
     //SOUND EFFECTS
     self.sfx = YES;

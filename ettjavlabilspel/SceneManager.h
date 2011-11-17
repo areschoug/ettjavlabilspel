@@ -11,10 +11,9 @@
 #import "GameOverLayer.h"
 #import "GameLayer.h"
 #import "HighScoreLayer.h"
+#import "GlobalHighScoreLayer.h"
 #import "SettingsLayer.h"
 #import "InstructionsLayer.h"
-#import "PauseLayer.h"
-#import "PauseSettingsLayer.h"
 #import "CarSelectLayer.h"
 
 @interface SceneManager : NSObject
@@ -26,12 +25,10 @@
 +(void) goGame;
 +(void) goCarSelect;
 +(void) goHighScore;
++(void) goGlobalHighScore;
 +(void) goGameOver;
 +(void) goSettings;
 +(void) goInstructions;
-+(void) goPaus;
-+(void) goPausSettings;
-
 
 +(void) go: (CCLayer *) layer;
 +(CCScene *)warp:(CCLayer *) layer;

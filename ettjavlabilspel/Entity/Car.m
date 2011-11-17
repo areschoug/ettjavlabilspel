@@ -30,8 +30,8 @@
     }
     
     
-    int newPosX = self.position.x+(accX*100);
-    int newPosY = self.position.y+((accY)*100);
+    int newPosX = self.position.x+(accX*60);
+    int newPosY = self.position.y+((accY)*60);
     
     
     if(newPosX > screenSize.width-width/2){

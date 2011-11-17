@@ -11,6 +11,7 @@
 #import "SceneManager.h"
 
 @interface HighScoreLayer : CCLayer {
-    CCSprite *background;
+    NSMutableData *responsData;
+    CCLabelTTF *loading;
 }
 @end

@@ -33,7 +33,7 @@
         CCMenuItemImage *back = [CCMenuItemImage itemFromNormalImage:@"back-button1.png" selectedImage:@"back-button2.png" target:self selector:@selector(backButtonClicked:)];
         back.position = ccp(250, 420);
         
-        menu = [CCMenu menuWithItems:music,sfx,back, nil];
+        menu = [CCMenu menuWithItems :music,sfx,back, nil];
 
         menu.position = ccp(0, 0);
         [self addChild:menu];
@@ -43,15 +43,14 @@
 
 -(void)musicButtonClicked:(id)sender
 {
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"mute"])
-    {
-        [[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:1];
-        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"mute"];
-    }
-    else
-    {
-        [[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:0];
-        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"mute"];
+    if(![Game sharedGame].music){
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"menu_music.mp3"];
+        [Game sharedGame].musicPlaying = YES;
+        [Game sharedGame].music = YES;
+    }else{
+        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+        [Game sharedGame].musicPlaying = NO;
+        [Game sharedGame].music = NO;
     }
     
     [music setString:[self checkMusic]];
@@ -82,7 +81,7 @@
 {
     NSString *musicString;    
     
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"mute"])
+    if(![Game sharedGame].music)
         musicString = @"Music: Off";
     else
         musicString = @"Music: On";

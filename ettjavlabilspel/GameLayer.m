@@ -7,13 +7,6 @@
 //  The highscore scene. Currently the highscore only showes top five on your the handset.
 //
 //  TODO:
-//  - implement nice graphics 
-//  - get pause button to work correctly
-//
-//  
-//  STATES:
-//      drunk = 1
-//      invincible = 2
 
 
 #import "GameLayer.h"
@@ -31,38 +24,49 @@ int stateTimer;
         gameSpeed = [Game sharedGame].gameSpeed;
         state = [Game sharedGame].state;
         score = [Game sharedGame].currentScore;
+        repeatRate = [Game sharedGame].repeatRate;
+        level = [Game sharedGame].level;
+        
         self.isAccelerometerEnabled = YES;
         [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+        
         playing = YES;
+
         
         //MUSIC
         if(![Game sharedGame].music)
         {
-            [[SimpleAudioEngine sharedEngine]playBackgroundMusic:@"music.mp3"];
+            if ([[MPMusicPlayerController iPodMusicPlayer] playbackState] != MPMusicPlaybackStatePlaying) {
+                [[SimpleAudioEngine sharedEngine]playBackgroundMusic:@"menu_music.mp3"];
+            }   
         }
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"mute"])
-            [[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:0];
-        else
-            [[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:1];
-        
+          
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"muteSfx"])
             [[SimpleAudioEngine sharedEngine] setEffectsVolume:0];
         else
             [[SimpleAudioEngine sharedEngine] setEffectsVolume:1];
         
         //MENU
-        CCMenuItemImage *pausButton = [CCMenuItemImage itemFromNormalImage:@"pause-button1.png" selectedImage:@"pause-button2.png" target:self selector:@selector(menuItemClicked:)];
-        pausButton.position = ccp(250, 420);
+        CCMenuItemImage *pausButton = [CCMenuItemImage itemFromNormalImage:@"ingame-pause1.png" selectedImage:@"ingame-pause2.png" target:self selector:@selector(menuItemClicked:)];
+        pausButton.position = ccp(265, 460);
         menu = [CCMenu menuWithItems:pausButton, nil];
         menu.position = ccp(0, 0);
         
-        //HIGHSCORE
+        //SCORE
         scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%i",score]] fontName:@"helvetica" fontSize:22];
-        scoreLabel.position = ccp(15, 430);
+        scoreLabel.position = ccp(65, 465);
+
+        CCSprite *scoreBackground = [CCSprite spriteWithFile:@"ingame-score.png"];
+        scoreBackground.position = ccp(92, 462);
+        
         
         //init background
-        background = [[Entity alloc]initWithFile:@"road.png"];
+        background = [[Entity alloc]initWithFile:@"cityroad.png"];
         background.position = [Game sharedGame].backgroundPosition;
+        
+        //init tunnel
+        tunnel = [[Entity alloc] initWithFile:@"tunnel.png"];
+        tunnel.position = [Game sharedGame].tunnelPosition;
         
         //init car
         NSString *carColor;
@@ -129,6 +133,9 @@ int stateTimer;
         fast = [[Fast alloc] initWithFile:@"fast.png"];
         fast.position = [Game sharedGame].fastPosition;
         //[fast runAction:[CCRepeatForever actionWithAction:[CCRotateBy actionWithDuration:1 angle:360]]];
+        if (level != 1) {
+            [self setTexture];
+        }
         
         //lowest is ontop
         [self addChild:background];
@@ -142,12 +149,14 @@ int stateTimer;
         [self addChild:fast];
         [self addChild:bullet];
         [self addChild:car];
+        [self addChild:tunnel];
         [self addChild:menu];
+        [self addChild:scoreBackground];
         [self addChild:scoreLabel];
         
-        [[UIAccelerometer sharedAccelerometer]setUpdateInterval:1/10];
+        [[UIAccelerometer sharedAccelerometer]setUpdateInterval:1/60];
         [self schedule:@selector(callEveryFrame:)];
-        [self schedule:@selector(speedChange:) interval:3];
+        [self schedule:@selector(speedChange:) interval:10];
     }
     return self;
 }
@@ -268,6 +277,7 @@ int stateTimer;
     */
     }
 }
+
     /* menuItemClicked: (id)sender
      *
      * The pause button gets clicked. 
@@ -277,82 +287,146 @@ int stateTimer;
      */
 -(void)menuItemClicked: (id)sender
 {
-    //STATE
-    [Game sharedGame].gameSpeed = gameSpeed; 
-    [Game sharedGame].state = state;
-    [Game sharedGame].stateTimer = stateTimer;
-    [Game sharedGame].currentScore = score/10;
-    //POSITION
-    [Game sharedGame].backgroundPosition = background.position;
-    [Game sharedGame].carPosition = car.position;
-    [Game sharedGame].holePosition = hole.position;
-    [Game sharedGame].bottlePosition = bottle.position;
-    [Game sharedGame].destroyedCarPosition = destroyedCar.position;
-    [Game sharedGame].inviciblePosition = invincible.position;
-    [Game sharedGame].gunPosition = gun.position;
-    [Game sharedGame].bulletPosition = bullet.position;
-    //Change the scene
-    [SceneManager goPaus];
     
+    if(![[CCDirector sharedDirector] isPaused]){
+        [menu setOpacity:0];
+        
+        [[CCDirector sharedDirector] pause];
+        
+        CCMenuItemImage *returnButton = [CCMenuItemImage itemFromNormalImage:@"pause-continue1.png" selectedImage:@"pause-continue2.png" target:self selector:@selector(pauseMenuItemClicked:)];
+        
+        CCMenuItemImage *menuButton = [CCMenuItemImage itemFromNormalImage:@"pause-mainmenu1.png" selectedImage:@"pause-mainmenu2.png" target:self selector:@selector(pauseMenuItemClicked:)];
+        
+        returnButton.position = ccp(0, 100);
+        menuButton.position = ccp(0, 0);
+        
+        returnButton.tag = 1;
+        menuButton.tag = 2;
+        
+        pauseMenu = [CCMenu menuWithItems:returnButton,menuButton, nil];
+        
+        menu.position = ccp(0, 0);
+        
+        [self addChild:pauseMenu];
+        
+    }
+    
+}
+
+-(void)pauseMenuItemClicked:(id)sender{
+    switch ([sender tag]) {
+        case 1:
+            [menu setOpacity:255];
+            [[CCDirector sharedDirector] resume];
+            [self removeChild:pauseMenu cleanup:YES];
+            break;
+        case 2:
+            [[CCDirector sharedDirector] resume];
+            [SceneManager goMenu];
+            [[Game sharedGame]resetGame];
+            break;            
+        default:
+            break;
+    }
 }
 
 -(void)callEveryFrame:(ccTime)dt
 {
     if (playing) {
+        
+        //BACKGROUND
+        if (background.position.y <= 240-20) {
+            background.position = ccp(160, background.position.y+repeatRate);
+        }
+        
+        if (tunnel.position.y <= -400) {
+            if(level >= 4)
+                tunnel.position = ccp(-400, 100000);
+            else
+                tunnel.position = ccp(160, 2500);            
+
+            textureChanged = NO;
+        }
+        
+        if([hole collision:tunnel]){
+            hole.position = ccp(-100, -100);
+        }
+
+        if([destroyedCar collision:tunnel]){
+            destroyedCar.position = ccp(-100, -100);
+        }
+        
+        if ([bottle collision:tunnel]) {
+            bottle.position = ccp(-100, -100);
+        }
+        
+        if ([invincible collision:tunnel]) {
+            invincible.position = ccp(-100, -100);
+        }
+
+        if ([small collision:tunnel]) {
+            small.position = ccp(-100, -100);
+        }
+        
+        if ([gun collision:tunnel]) {
+            gun.position = ccp(-100, -100);
+        }
+        
+        if ([fast collision:tunnel]) {
+            fast.position = ccp(-100, -100);
+        }
+        
+        if ([slow collision:tunnel]) {
+            slow.position = ccp(-100, -100);
+        }
+        
+        if([tunnel collision:car]){
+            if (textureChanged == NO  && tunnel.position.y < 240) {
+                level += 1;
+                [self setTexture];
+            }
+        }
+        
+        //MOVE
+        [background     goX:0   goY:-gameSpeed];
+        [tunnel         goX:0   goY:-gameSpeed];
+        [hole           objectGoX:0 objectGoY:-gameSpeed];
+        [bottle         objectGoX:0 objectGoY:-gameSpeed]; 
+        [destroyedCar   objectGoX:0 objectGoY:-gameSpeed];
+        [invincible     objectGoX:0 objectGoY:-gameSpeed];
+        [small          objectGoX:0 objectGoY:-gameSpeed];
+        [gun            objectGoX:0 objectGoY:-gameSpeed];
+        [slow           objectGoX:0 objectGoY:-gameSpeed];    
+        [fast           objectGoX:0 objectGoY:-gameSpeed];
+
     
+        
+        if(state == 4){
+            [bullet objectGoX:0 objectGoY:gameSpeed + 1 car:car.position];
+        }
     
-    //BACKGROUND
-    if (background.position.y <= 240-20) {
-        background.position = ccp(160, background.position.y+40);
-    }
-    
-    //MOVE
-    [background     goX:0   goY:-gameSpeed];
-    [hole           objectGoX:0 objectGoY:-gameSpeed];
-    [bottle         objectGoX:0 objectGoY:-gameSpeed]; 
-    [destroyedCar   objectGoX:0 objectGoY:-gameSpeed];
-    [invincible     objectGoX:0 objectGoY:-gameSpeed];
-    [small          objectGoX:0 objectGoY:-gameSpeed];
-    [gun            objectGoX:0 objectGoY:-gameSpeed];
-    [slow           objectGoX:0 objectGoY:-gameSpeed];    
-    [fast           objectGoX:0 objectGoY:-gameSpeed];    
-    if(state == 4){
-        [bullet objectGoX:0 objectGoY:gameSpeed + 1 car:car.position];
-    }
-    
-    //CHECK IF BULLET HIT
-    if (state == 4 && ([bullet collision:destroyedCar] || [bullet collision:hole])) {
+        //CHECK IF BULLET HIT
+        if (state == 4 && ([bullet collision:destroyedCar] || [bullet collision:hole])) {
             
-        if([bullet collision:hole])
-            hole.position = ccp(-100, 100);
+            if([bullet collision:hole])
+                hole.position = ccp(-100, 100);
             
-        if ([bullet collision:destroyedCar])
-            destroyedCar.position = ccp(-100, 100);
+            if ([bullet collision:destroyedCar])
+                destroyedCar.position = ccp(-100, 100);
             
-        bullet.position = ccp(1000, 1000);
-    }    
+            bullet.position = ccp(1000, 1000);
+        }    
     
         //Collision by car results in a game ending tragedy
         if(([destroyedCar collision:car] || [hole collision:car]) && state != 2){
-            CCTexture2D *collisionTexture = [[CCTexture2D alloc]initWithImage:[UIImage imageNamed:@"car3-dead.png"]];
-            [car setTexture:collisionTexture];
-            [collisionTexture release];
-            [Game sharedGame].gameSpeed = 0;
-            [Game sharedGame].currentScore = score/10;
-            [Game sharedGame].backgroundPosition = background.position;
-            [Game sharedGame].destroyedCarPosition = destroyedCar.position;
-            [Game sharedGame].holePosition = hole.position;
-            [Game sharedGame].carPosition = car.position;
-            [Game sharedGame].inviciblePosition = invincible.position;
-            [Game sharedGame].smallPosition = small.position;
-            [Game sharedGame].bulletPosition = bullet.position;
+            [self saveState];
             playing = NO;
             [SceneManager goGameOver];
         }    
         
-    //CURRENTSCORE
-    score += (1 * [car scoreMultiplier]);
-    [scoreLabel setString:[NSString stringWithFormat:@"%i",score/10]];
+        //CURRENTSCORE
+        score += (1 * [car scoreMultiplier]);
+        [scoreLabel setString:[NSString stringWithFormat:@"%i",score/10]];
     }
 }
 
@@ -361,19 +435,84 @@ int stateTimer;
     gameSpeed += 1;
 }
 
+-(void) setTexture
+{
+    CCTexture2D *roadTexture;
+    CCTexture2D *holeTexture;
+    CCTexture2D *destroyedCarTexture;
+    if (level == 2) {
+        roadTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sandroad.png"]];
+        holeTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"snowman.png"]];
+        destroyedCarTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"snowhole.png"]];
+        repeatRate = 79;
+    }else if (level == 3){
+        roadTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"iceroad2.png"]];
+        holeTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"snowman.png"]];
+        destroyedCarTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"snowhole.png"]];
+        repeatRate = 64;
+    }else if(level >= 4){
+        roadTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"rainbow.png"]];
+        holeTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"star.png"]];
+        destroyedCarTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"unicorn.png"]];
+        repeatRate = 41;
+    }
+
+    [background setTexture:roadTexture];
+    [hole setTexture:holeTexture];
+    [destroyedCar setTexture:destroyedCarTexture];
+    
+    [roadTexture release];
+    [holeTexture release];
+    [destroyedCarTexture release];
+    
+    textureChanged = YES;
+}
+
+- (void) saveState
+{
+    //STATE
+    [Game sharedGame].gameSpeed = gameSpeed; 
+    [Game sharedGame].state = state;
+    [Game sharedGame].stateTimer = stateTimer;
+    [Game sharedGame].currentScore = score/10;
+    [Game sharedGame].repeatRate = repeatRate ;
+    [Game sharedGame].level = level;
+    
+    //POSITIONS
+    [Game sharedGame].backgroundPosition = background.position;
+    [Game sharedGame].carPosition = car.position;
+    [Game sharedGame].holePosition = hole.position;
+    [Game sharedGame].bottlePosition = bottle.position;
+    [Game sharedGame].destroyedCarPosition = destroyedCar.position;
+    [Game sharedGame].inviciblePosition = invincible.position;
+    [Game sharedGame].gunPosition = gun.position;
+    [Game sharedGame].bulletPosition = bullet.position;
+    [Game sharedGame].smallPosition = small.position;
+    [Game sharedGame].fastPosition = fast.position;
+    [Game sharedGame].slowPosition = slow.position;
+    [Game sharedGame].tunnelPosition = tunnel.position;
+}
+
 - (void) dealloc
 {
     NSLog(@"DELLOC GAMELAYER - %@",self);
-    /*[car release];
+    [car release];
+    
     [background release];
+    [tunnel release];
     [hole release];
     [bottle release];
     [invincible release];
     [small release];
+    [fast release];
+    [slow release];
     [gun release];
     [bullet release];
-    [scoreLabel release];
-    [paus release];*/
+
+    //RELEASE TEXTURE
+    [CCSpriteFrameCache purgeSharedSpriteFrameCache];
+    [CCTextureCache purgeSharedTextureCache];
+    
 	[super dealloc];
 
 }

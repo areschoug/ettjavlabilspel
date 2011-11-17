@@ -12,10 +12,23 @@
 
 @interface GameOverLayer : CCLayer {
     CCSprite *background;
+    CCSprite *tunnel;
     CCSprite *car;
-    CCSprite *destroyedCar;
+    //OBSTACLE
     CCSprite *hole;
+    CCSprite *destroyedCar;
+    //POWERUPS
+    CCSprite *bottle;
+    CCSprite *invincible;
+    CCSprite *small;
+    CCSprite *gun;
+    CCSprite *bullet;
+    CCSprite *slow;
+    CCSprite *fast;
+    
+    int level;
 }
 
 -(void)saveHighScore;
+-(void)setTexture;
 @end

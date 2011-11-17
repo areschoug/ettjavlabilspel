@@ -9,6 +9,7 @@
 #import "cocos2d.h"
 #import "SceneManager.h"
 #import "Game.h"
+#import "SimpleAudioEngine.h"
 
 @interface SettingsLayer : CCLayer {
     CCMenuItemLabel *music;

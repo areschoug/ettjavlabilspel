@@ -26,8 +26,10 @@
     @public int carColor;
     @public int state;
     @public int stateTimer;    
+    @public int level;
+    @public int repeatRate;
     @public BOOL music;
-    @public BOOL mute;
+    @public BOOL musicPlaying;
     @public BOOL sfx;
     @public BOOL started;
     
@@ -43,6 +45,7 @@
     @public CGPoint bulletPosition;
     @public CGPoint fastPosition;
     @public CGPoint slowPosition;
+    @public CGPoint tunnelPosition;
 }
 
 //STATE
@@ -51,8 +54,10 @@
 @property(readwrite,assign) int carColor;
 @property(readwrite,assign) int state;
 @property(readwrite,assign) int stateTimer;
+@property(readwrite,assign) int level;
+@property(readwrite,assign) int repeatRate;
 @property(readwrite,assign) BOOL music;
-@property(readwrite,assign) BOOL mute;
+@property(readwrite,assign) BOOL musicPlaying;
 @property(readwrite,assign) BOOL sfx;
 @property(readwrite,assign) BOOL started;
 
@@ -68,7 +73,7 @@
 @property(readwrite,assign) CGPoint bulletPosition;
 @property(readwrite,assign) CGPoint fastPosition;
 @property(readwrite,assign) CGPoint slowPosition;
-
+@property(readwrite,assign) CGPoint tunnelPosition;
 
 +(Game*)sharedGame;
 -(void)resetGame;

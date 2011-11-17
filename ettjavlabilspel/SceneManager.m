@@ -34,6 +34,13 @@
 
 }
 
++(void) goGlobalHighScore
+{
+    CCLayer *layer = [GlobalHighScoreLayer node];
+    [SceneManager go: layer];
+    
+}
+
 +(void) goGameOver
 {
     CCLayer *layer = [GameOverLayer node];
@@ -52,20 +59,6 @@
     CCLayer *layer = [InstructionsLayer node];
     [SceneManager go:layer];
 
-}
-
-+(void)goPaus
-{
-    CCLayer *layer = [PauseLayer node];
-    [SceneManager go:layer];
-
-}
-
-+(void)goPausSettings
-{
-    CCLayer *layer = [PauseSettingsLayer node];
-    [SceneManager go:layer];
-    
 }
 
 +(void) go:(CCLayer *)layer
