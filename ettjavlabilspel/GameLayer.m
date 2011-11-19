@@ -26,18 +26,18 @@ int stateTimer;
         score = [Game sharedGame].currentScore;
         repeatRate = [Game sharedGame].repeatRate;
         level = [Game sharedGame].level;
+        changeScore = [Game sharedGame].changeScore;
         
         self.isAccelerometerEnabled = YES;
         [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
         
         playing = YES;
 
-        
         //MUSIC
         if(![Game sharedGame].music)
         {
             if ([[MPMusicPlayerController iPodMusicPlayer] playbackState] != MPMusicPlaybackStatePlaying) {
-                [[SimpleAudioEngine sharedEngine]playBackgroundMusic:@"menu_music.mp3"];
+                [[SimpleAudioEngine sharedEngine]playBackgroundMusic:@"music.mp3"];
             }   
         }
           
@@ -73,13 +73,22 @@ int stateTimer;
         
         switch ([Game sharedGame].carColor) {
             case 0:
-                carColor = @"red.png";
+                carColor = @"green-car.png";
                 break;
             case 1:
-                carColor = @"gren.png";
+                carColor = @"sport-car.png";
                 break;
             case 2:
-                carColor = @"blue.png";
+                carColor = @"jeep.png";
+                break;
+            case 3:
+                carColor = @"bat-car.png";
+                break;
+            case 4:
+                carColor = @"army.png";
+                break;
+            case 5:
+                carColor = @"dream-car.png";
                 break;
             default:
                 break;
@@ -90,35 +99,39 @@ int stateTimer;
 
         //OBSTACLES
         
-        //init hole
-        hole = [[Hole alloc] initWithFile:@"hinder3.png"];
-        hole.position = [Game sharedGame].holePosition;
+        //init obstacle one
+        obstacleOne = [[Obstacle alloc] initWithFile:@"city-obstacleOne.png"];
+        obstacleOne.position = [Game sharedGame].obstacleOnePosition;
 
-        //init destroyed car
-        destroyedCar = [[DestroyedCar alloc] initWithFile:@"dubbelhinder.png"];
-        destroyedCar.position = [Game sharedGame].destroyedCarPosition;
+        //init obstacle two
+        obstacleTwo = [[Obstacle alloc] initWithFile:@"city-obstacleTwo.png"];
+        obstacleTwo.position = [Game sharedGame].obstacleTwoPosition;
+        
+        //init big obstacle
+        bigObstacle = [[BigObstacle alloc] initWithFile:@"city-bigObstacle.png"];
+        bigObstacle.position = [Game sharedGame].bigObstaclePosition;
         
         //POWERUPS
         
         //init bottle
-        bottle = [[Alcohol alloc] initWithFile:@"flaska2.png"];
+        bottle = [[Alcohol alloc] initWithFile:@"alkohol.png"];
         bottle.position = [Game sharedGame].bottlePosition;
-        [bottle runAction:[CCRepeatForever actionWithAction:[CCRotateBy actionWithDuration:1 angle:360]]];        
+        [bottle runAction:[CCRepeatForever actionWithAction:[CCRotateBy actionWithDuration:3 angle:360]]];        
 
         //init invicible
-        invincible = [[Invincible alloc] initWithFile:@"invicible.png"];
+        invincible = [[Immortal alloc] initWithFile:@"immortal.png"];
         invincible.position = [Game sharedGame].inviciblePosition;
-        [invincible runAction:[CCRepeatForever actionWithAction:[CCRotateBy actionWithDuration:1 angle:360]]];
+        [invincible runAction:[CCRepeatForever actionWithAction:[CCRotateBy actionWithDuration:3 angle:360]]];
         
         //init small
-        small = [[Small alloc] initWithFile:@"small.png"];
+        small = [[Small alloc] initWithFile:@"smaller.png"];
         small.position = [Game sharedGame].smallPosition;
-        [small runAction:[CCRepeatForever actionWithAction:[CCRotateBy actionWithDuration:1 angle:360]]];
+        [small runAction:[CCRepeatForever actionWithAction:[CCRotateBy actionWithDuration:3 angle:360]]];
         
         //init gun
         gun = [[Gun alloc] initWithFile:@"gun.png"];
         gun.position = [Game sharedGame].gunPosition;
-        [gun runAction:[CCRepeatForever actionWithAction:[CCRotateBy actionWithDuration:1 angle:360]]];
+        [gun runAction:[CCRepeatForever actionWithAction:[CCRotateBy actionWithDuration:3 angle:360]]];
         
         //init bullet
         bullet = [[Bullet alloc] initWithFile:@"bullet.png"];
@@ -127,26 +140,26 @@ int stateTimer;
         //init slow
         slow = [[Slow alloc] initWithFile:@"slow.png"];
         slow.position = [Game sharedGame].slowPosition;
-        //[slow runAction:[CCRepeatForever actionWithAction:[CCRotateBy actionWithDuration:1 angle:360]]];
         
         //init fast
         fast = [[Fast alloc] initWithFile:@"fast.png"];
         fast.position = [Game sharedGame].fastPosition;
-        //[fast runAction:[CCRepeatForever actionWithAction:[CCRotateBy actionWithDuration:1 angle:360]]];
+
         if (level != 1) {
             [self setTexture];
         }
         
         //lowest is ontop
         [self addChild:background];
-        [self addChild:hole];
-        [self addChild:destroyedCar];
+        [self addChild:slow];
+        [self addChild:fast];
+        [self addChild:obstacleOne];
+        [self addChild:obstacleTwo];
+        [self addChild:bigObstacle];
         [self addChild:bottle];
         [self addChild:invincible];
         [self addChild:small];
         [self addChild:gun];
-        [self addChild:slow];
-        [self addChild:fast];
         [self addChild:bullet];
         [self addChild:car];
         [self addChild:tunnel];
@@ -156,7 +169,7 @@ int stateTimer;
         
         [[UIAccelerometer sharedAccelerometer]setUpdateInterval:1/60];
         [self schedule:@selector(callEveryFrame:)];
-        [self schedule:@selector(speedChange:) interval:10];
+        [self schedule:@selector(speedChange:) interval:15];
     }
     return self;
 }
@@ -339,60 +352,76 @@ int stateTimer;
             background.position = ccp(160, background.position.y+repeatRate);
         }
         
-        if (tunnel.position.y <= -400) {
-            if(level >= 4)
-                tunnel.position = ccp(-400, 100000);
-            else
-                tunnel.position = ccp(160, 2500);            
+        if ([obstacleOne collision:obstacleTwo]) {
+            obstacleOne.position = ccp(-100, -100);
+        }
 
+        if ([obstacleOne collision:bigObstacle]) {
+            obstacleOne.position = ccp(-100, -100);
+        }
+        
+        if ([obstacleTwo collision:bigObstacle]) {
+            obstacleTwo.position = ccp(-100, -100);
+        }
+        
+        if (tunnel.position.y <= -400) {
+            tunnel.position = ccp(-200, 100000);
             textureChanged = NO;
         }
         
-        if([hole collision:tunnel]){
-            hole.position = ccp(-100, -100);
+        if([obstacleOne collision:tunnel]){
+            obstacleOne.position = ccp(obstacleOne.position.x + 500, obstacleOne.position.y);
         }
 
-        if([destroyedCar collision:tunnel]){
-            destroyedCar.position = ccp(-100, -100);
+        if([obstacleTwo collision:tunnel]){
+            obstacleTwo.position = ccp(obstacleTwo.position.x + 500, obstacleTwo.position.y);
+        }
+        
+        if([bigObstacle collision:tunnel]){
+            bigObstacle.position = ccp(bigObstacle.position.x + 500, bigObstacle.position.y);
         }
         
         if ([bottle collision:tunnel]) {
-            bottle.position = ccp(-100, -100);
+            bottle.position = ccp(bottle.position.x + 500, bottle.position.y);
         }
         
         if ([invincible collision:tunnel]) {
-            invincible.position = ccp(-100, -100);
+            invincible.position = ccp(invincible.position.x + 500, invincible.position.y);
         }
 
         if ([small collision:tunnel]) {
-            small.position = ccp(-100, -100);
+            small.position = ccp(small.position.x + 500, small.position.y);
         }
         
         if ([gun collision:tunnel]) {
-            gun.position = ccp(-100, -100);
+            gun.position = ccp(gun.position.x + 500, gun.position.y);
         }
         
         if ([fast collision:tunnel]) {
-            fast.position = ccp(-100, -100);
+            fast.position = ccp(fast.position.x + 500, fast.position.y);
         }
         
         if ([slow collision:tunnel]) {
-            slow.position = ccp(-100, -100);
+            slow.position = ccp(slow.position.x + 500, slow.position.y );
         }
         
-        if([tunnel collision:car]){
-            if (textureChanged == NO  && tunnel.position.y < 240) {
-                level += 1;
-                [self setTexture];
-            }
+        if (score/10 >= changeScore) {
+            tunnel.position = ccp(160, 1000);
+            changeScore += [Game sharedGame].changeScore;
+        }
+        
+        if (textureChanged == NO  && tunnel.position.y-50  < 240) {
+            level += 1;
+            [self setTexture];
         }
         
         //MOVE
         [background     goX:0   goY:-gameSpeed];
         [tunnel         goX:0   goY:-gameSpeed];
-        [hole           objectGoX:0 objectGoY:-gameSpeed];
+        [obstacleOne    objectGoX:0 objectGoY:-gameSpeed];
+        [obstacleTwo    objectGoX:0 objectGoY:-gameSpeed];        
         [bottle         objectGoX:0 objectGoY:-gameSpeed]; 
-        [destroyedCar   objectGoX:0 objectGoY:-gameSpeed];
+        [bigObstacle    objectGoX:0 objectGoY:-gameSpeed];
         [invincible     objectGoX:0 objectGoY:-gameSpeed];
         [small          objectGoX:0 objectGoY:-gameSpeed];
         [gun            objectGoX:0 objectGoY:-gameSpeed];
@@ -406,19 +435,22 @@ int stateTimer;
         }
     
         //CHECK IF BULLET HIT
-        if (state == 4 && ([bullet collision:destroyedCar] || [bullet collision:hole])) {
+        if (state == 4 && ([bullet collision:bigObstacle] || [bullet collision:obstacleOne] || [bullet collision:obstacleTwo])) {
             
-            if([bullet collision:hole])
-                hole.position = ccp(-100, 100);
+            if([bullet collision:obstacleOne])
+                obstacleOne.position = ccp(-100, 100);
             
-            if ([bullet collision:destroyedCar])
-                destroyedCar.position = ccp(-100, 100);
+            if ([bullet collision:obstacleTwo])
+                obstacleTwo.position = ccp(-100, 100);
+            
+            if ([bullet collision:bigObstacle])
+                bigObstacle.position = ccp(-100, 100);
             
             bullet.position = ccp(1000, 1000);
         }    
     
         //Collision by car results in a game ending tragedy
-        if(([destroyedCar collision:car] || [hole collision:car]) && state != 2){
+        if(([bigObstacle collision:car] || [obstacleOne collision:car] || [obstacleTwo collision:car]) && state != 2){
             [self saveState];
             playing = NO;
             [SceneManager goGameOver];
@@ -438,32 +470,49 @@ int stateTimer;
 -(void) setTexture
 {
     CCTexture2D *roadTexture;
-    CCTexture2D *holeTexture;
-    CCTexture2D *destroyedCarTexture;
+    CCTexture2D *obstacleOneTexture;
+    CCTexture2D *obstacleTwoTexture;    
+    CCTexture2D *bigObstacleTexture;
+    
     if (level == 2) {
         roadTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sandroad.png"]];
-        holeTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"snowman.png"]];
-        destroyedCarTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"snowhole.png"]];
+        obstacleOneTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-obstacleOne.png"]];
+        obstacleTwoTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-obstacleTwo.png"]];
+        bigObstacleTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-bigObstacle.png"]];
+        
+        obstacleTwo.rotation = 320;
+        
         repeatRate = 79;
     }else if (level == 3){
         roadTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"iceroad2.png"]];
-        holeTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"snowman.png"]];
-        destroyedCarTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"snowhole.png"]];
+        obstacleOneTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"ice-obstacleOne.png"]];
+        obstacleTwoTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"ice-obstacleTwo.png"]];
+        bigObstacleTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"ice-bigObstacle.png"]];
+
+        obstacleTwo.rotation = 0;
+        
         repeatRate = 64;
     }else if(level >= 4){
-        roadTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"rainbow.png"]];
-        holeTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"star.png"]];
-        destroyedCarTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"unicorn.png"]];
+        obstacleOneTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-obstacleOne.png"]];
+        obstacleTwoTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-obstacleTwo.png"]];
+        bigObstacleTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-bigObstacle.png"]];
         repeatRate = 41;
     }
 
     [background setTexture:roadTexture];
-    [hole setTexture:holeTexture];
-    [destroyedCar setTexture:destroyedCarTexture];
+    [obstacleOne setTexture:obstacleOneTexture];
+    [obstacleOne setTextureRect:CGRectMake(0, 0, obstacleOneTexture.contentSize.width, obstacleOneTexture.contentSize.height)];
+    [obstacleTwo setTexture:obstacleTwoTexture];    
+    [obstacleTwo setTextureRect:CGRectMake(0, 0, obstacleTwoTexture.contentSize.width, obstacleTwoTexture.contentSize.height)];
+    [bigObstacle setTexture:bigObstacleTexture];
+    [bigObstacle setTextureRect:CGRectMake(0, 0, bigObstacleTexture.contentSize.width, bigObstacleTexture.contentSize.height)];
     
     [roadTexture release];
-    [holeTexture release];
-    [destroyedCarTexture release];
+    [obstacleOneTexture release];
+    [obstacleTwoTexture release];
+    [bigObstacleTexture release];
+    
+
     
     textureChanged = YES;
 }
@@ -481,9 +530,12 @@ int stateTimer;
     //POSITIONS
     [Game sharedGame].backgroundPosition = background.position;
     [Game sharedGame].carPosition = car.position;
-    [Game sharedGame].holePosition = hole.position;
+    
+    [Game sharedGame].obstacleOnePosition = obstacleOne.position;
+    [Game sharedGame].obstacleTwoPosition = obstacleTwo.position;
+    [Game sharedGame].bigObstaclePosition = bigObstacle.position;
+
     [Game sharedGame].bottlePosition = bottle.position;
-    [Game sharedGame].destroyedCarPosition = destroyedCar.position;
     [Game sharedGame].inviciblePosition = invincible.position;
     [Game sharedGame].gunPosition = gun.position;
     [Game sharedGame].bulletPosition = bullet.position;
@@ -500,7 +552,9 @@ int stateTimer;
     
     [background release];
     [tunnel release];
-    [hole release];
+    [obstacleOne release];
+    [obstacleTwo release];
+    [bigObstacle release];    
     [bottle release];
     [invincible release];
     [small release];

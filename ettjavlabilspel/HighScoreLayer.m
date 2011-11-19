@@ -25,7 +25,7 @@
         int highestScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"highestScore"];
         NSString *username = [[NSUserDefaults standardUserDefaults] stringForKey:@"savedUsername"];
         NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:@"savedPassword"];
-        NSString *url = [NSString stringWithFormat:@"http://ettjavlabilspel.com/Highscore/get_highscore.php?username=%@&password=%@&score=%i",username,password,highestScore];
+        NSString *url = [NSString stringWithFormat:@"http://ettjavlabilspel.com/get_highscore.php?username=%@&password=%@&score=%i",username,password,highestScore];
         
         
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];

@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
-#import "Hole.h"
-#import "DestroyedCar.h"
+#import "Obstacle.h"
+#import "BigObstacle.h"
 #import "Alcohol.h"
-#import "Invincible.h"
+#import "Immortal.h"
 #import "Small.h"
 #import "Gun.h"
 #import "Bullet.h"
@@ -23,6 +23,7 @@
     //STATE
     @public int gameSpeed;
     @public int currentScore;
+    @public int changeScore;
     @public int carColor;
     @public int state;
     @public int stateTimer;    
@@ -36,9 +37,12 @@
     //POSITION
     @public CGPoint backgroundPosition;
     @public CGPoint carPosition;
-    @public CGPoint holePosition;
+    
+    @public CGPoint obstacleOnePosition;
+    @public CGPoint obstacleTwoPosition;    
+    @public CGPoint bigObstaclePosition;
+
     @public CGPoint bottlePosition;
-    @public CGPoint destroyedCarPosition;
     @public CGPoint inviciblePosition;
     @public CGPoint smallPosition;
     @public CGPoint gunPosition;
@@ -51,6 +55,7 @@
 //STATE
 @property(readwrite,assign) int gameSpeed;
 @property(readwrite,assign) int currentScore;
+@property(readwrite,assign) int changeScore;
 @property(readwrite,assign) int carColor;
 @property(readwrite,assign) int state;
 @property(readwrite,assign) int stateTimer;
@@ -64,9 +69,12 @@
 //POSITION
 @property(readwrite,assign) CGPoint backgroundPosition;
 @property(readwrite,assign) CGPoint carPosition;
-@property(readwrite,assign) CGPoint holePosition;
+
+@property(readwrite,assign) CGPoint obstacleOnePosition;
+@property(readwrite,assign) CGPoint obstacleTwoPosition;
+@property(readwrite,assign) CGPoint bigObstaclePosition;
+
 @property(readwrite,assign) CGPoint bottlePosition;
-@property(readwrite,assign) CGPoint destroyedCarPosition;
 @property(readwrite,assign) CGPoint inviciblePosition;;
 @property(readwrite,assign) CGPoint smallPosition;
 @property(readwrite,assign) CGPoint gunPosition;

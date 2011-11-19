@@ -18,6 +18,7 @@ static Game* _sharedGame = nil;
 //CURENT STATE
 @synthesize gameSpeed;
 @synthesize currentScore;
+@synthesize changeScore;
 @synthesize carColor;
 @synthesize state;
 @synthesize stateTimer;
@@ -31,9 +32,12 @@ static Game* _sharedGame = nil;
 //POSITION
 @synthesize backgroundPosition;
 @synthesize carPosition;
-@synthesize holePosition;
+
+@synthesize obstacleOnePosition;
+@synthesize obstacleTwoPosition;
+@synthesize bigObstaclePosition;
+
 @synthesize bottlePosition;
-@synthesize destroyedCarPosition;
 @synthesize inviciblePosition;
 @synthesize smallPosition;
 @synthesize gunPosition;
@@ -72,6 +76,9 @@ static Game* _sharedGame = nil;
     //CURRENTSCORE
     self.currentScore = 0;
     
+    //CHANGESCORE
+    self.changeScore = 400;
+    
     //STATE
     self.state = 0;
     
@@ -88,19 +95,20 @@ static Game* _sharedGame = nil;
     self.backgroundPosition = ccp(160, 240-20);
     
     //TUNNEL
-    self.tunnelPosition = ccp(160, 1500);
+    self.tunnelPosition = ccp(-400, 100000);
     
     //HOLE
-    Hole *hole = [[Hole alloc] init];
-    self.holePosition = [hole getStartPositions:hole.startRate];
-    [hole release];
-    hole =nil;
+    Obstacle *obstacle = [[Obstacle alloc] init];
+    self.obstacleOnePosition = [obstacle getStartPositions:obstacle.startRate];
+    self.obstacleTwoPosition = [obstacle getStartPositions:obstacle.startRate];
+    [obstacle release];
+    obstacle =nil;
     
     //DESTROYED CAR
-    DestroyedCar *destroyedCar = [[DestroyedCar alloc] init];
-    self.destroyedCarPosition = [destroyedCar getStartPositions:destroyedCar.startRate];
-    [destroyedCar release];
-    destroyedCar = nil;
+    BigObstacle *bigObstacle = [[BigObstacle alloc] init];
+    self.bigObstaclePosition = [bigObstacle getStartPositions:bigObstacle.startRate];
+    [bigObstacle release];
+    bigObstacle = nil;
     
     //BOTTLE
     Alcohol *bottle = [[Alcohol alloc] init];
@@ -109,7 +117,7 @@ static Game* _sharedGame = nil;
     bottle = nil;
     
     //INVINVIBLE
-    Invincible *invicible = [[Invincible alloc] init];
+    Immortal *invicible = [[Immortal alloc] init];
     self.inviciblePosition = [invicible getStartPositions:invicible.startRate];
     [invicible release];
     invicible = nil;

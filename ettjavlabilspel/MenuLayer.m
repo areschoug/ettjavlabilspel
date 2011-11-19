@@ -123,7 +123,7 @@
         self.password = passwordField.text;
         
         if (username.length > 4 && password.length > 4) {
-            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://ettjavlabilspel.com/Highscore/set_user_score.php?username=%@&password=%@&score=0",self.username,self.password]]];
+            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://ettjavlabilspel.com/set_user_score.php?username=%@&password=%@&score=0",self.username,self.password]]];
             [[NSURLConnection alloc] initWithRequest:request delegate:self]; 
         }else{
             loginError = 2;

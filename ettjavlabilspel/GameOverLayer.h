@@ -15,8 +15,9 @@
     CCSprite *tunnel;
     CCSprite *car;
     //OBSTACLE
-    CCSprite *hole;
-    CCSprite *destroyedCar;
+    CCSprite *obstacleOne;
+    CCSprite *obstacleTwo;    
+    CCSprite *bigObstacle;
     //POWERUPS
     CCSprite *bottle;
     CCSprite *invincible;

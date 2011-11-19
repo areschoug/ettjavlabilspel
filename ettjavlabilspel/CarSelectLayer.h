@@ -13,10 +13,15 @@
 
 @interface CarSelectLayer : CCLayer {
     CCSprite *glow;
-    CCMenuItemImage *red;
-    CCMenuItemImage *green;
-    CCMenuItemImage *blue;
+    CCMenuItemImage *greencar;
+    CCMenuItemImage *sportcar;
+    CCMenuItemImage *jeep;
+    CCMenuItemImage *bat;
+    CCMenuItemImage *army;
+    CCMenuItemImage *dream;
     CCSprite *background;
+    
+    int highestScore;
 }
 
 -(void) backButtonClicked:(id)sender;

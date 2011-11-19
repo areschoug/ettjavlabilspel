@@ -16,11 +16,11 @@
 
 #import "Entity.h"
 #import "Car.h"
-#import "Hole.h"
-#import "DestroyedCar.h"
+#import "Obstacle.h"
+#import "BigObstacle.h"
 
 #import "Alcohol.h"
-#import "Invincible.h"
+#import "Immortal.h"
 #import "Small.h"
 #import "Gun.h"
 #import "Bullet.h"
@@ -33,11 +33,12 @@
     Entity *tunnel;
     Car *car;
     //OBSTACLE
-    Hole *hole;
-    DestroyedCar *destroyedCar;
+    Obstacle *obstacleOne;
+    Obstacle *obstacleTwo;    
+    BigObstacle *bigObstacle;
     //POWERUPS
     Alcohol *bottle;
-    Invincible *invincible;
+    Immortal *invincible;
     Small *small;
     Gun *gun;
     Bullet *bullet;
@@ -53,10 +54,12 @@
     int gameSpeed;
     int realGameSpeed;
     int score;
+    int changeScore;
     int changeTicker;
     int level;
     int repeatRate;
     BOOL textureChanged;
+    BOOL tunnlePlaced;
     BOOL playing;
 }
 

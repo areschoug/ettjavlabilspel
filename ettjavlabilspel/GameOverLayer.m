@@ -33,7 +33,7 @@
         if(![Game sharedGame].music)
         {
             [[SimpleAudioEngine sharedEngine]playBackgroundMusic:@"menu_music.mp3"];
-            [Game sharedGame].music = YES;
+            [Game sharedGame].musicPlaying = YES;
         }
         
         //init background
@@ -49,13 +49,17 @@
                
         //OBSTACLES
         
-        //init hole
-        hole = [[CCSprite alloc] initWithFile:@"hinder3.png"];
-        hole.position = [Game sharedGame].holePosition;
-        
-        //init destroyed car
-        destroyedCar = [[CCSprite alloc] initWithFile:@"dubbelhinder.png"];
-        destroyedCar.position = [Game sharedGame].destroyedCarPosition;
+        //init obstacle one
+        obstacleOne = [[CCSprite alloc] initWithFile:@"city-obstacleOne.png"];
+        obstacleOne.position = [Game sharedGame].obstacleOnePosition;
+
+        //init obstacle two
+        obstacleTwo = [[CCSprite alloc] initWithFile:@"city-obstacleTwo.png"];
+        obstacleTwo.position = [Game sharedGame].obstacleTwoPosition;
+                
+        //init big obstacle
+        bigObstacle = [[CCSprite alloc] initWithFile:@"city-bigObstacle.png"];
+        bigObstacle.position = [Game sharedGame].bigObstaclePosition;
         
         //POWERUPS
         
@@ -92,14 +96,15 @@
         
         //lowest is ontop
         [self addChild:background];
-        [self addChild:hole];
-        [self addChild:destroyedCar];
+        [self addChild:slow];
+        [self addChild:fast];
+        [self addChild:obstacleOne];
+        [self addChild:obstacleTwo];        
+        [self addChild:bigObstacle];
         [self addChild:bottle];
         [self addChild:invincible];
         [self addChild:small];
         [self addChild:gun];
-        [self addChild:slow];
-        [self addChild:fast];
         [self addChild:bullet];
         [self addChild:car];
         [self addChild:tunnel];
@@ -157,31 +162,42 @@
 -(void) setTexture
 {
     CCTexture2D *roadTexture;
-    CCTexture2D *holeTexture;
-    CCTexture2D *destroyedCarTexture;
+    CCTexture2D *obstacleOneTexture;
+    CCTexture2D *obstacleTwoTexture;    
+    CCTexture2D *bigObstacleTexture;
     
-    if(level == 2){
+    if (level == 2) {
         roadTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sandroad.png"]];
-        holeTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"snowman.png"]];
-        destroyedCarTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"snowhole.png"]];    
+        obstacleOneTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-obstacleOne.png"]];
+        obstacleTwoTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-obstacleTwo.png"]];
+        bigObstacleTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-bigObstacle.png"]];
+        obstacleTwo.rotation = 320;
     }else if (level == 3){
-        roadTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"iceroad.png"]];
-        holeTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"snowman.png"]];
-        destroyedCarTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"snowhole.png"]];
+        obstacleTwo.rotation = 0;
+        roadTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"iceroad2.png"]];
+        obstacleOneTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-obstacleOne.png"]];
+        obstacleTwoTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-obstacleTwo.png"]];
+        bigObstacleTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-bigObstacle.png"]];
     }else if(level >= 4){
-        roadTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"rainbow.png"]];
-        holeTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"star.png"]];
-        destroyedCarTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"unicorn.png"]];
+        roadTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"iceroad2.png"]];
+        obstacleOneTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-obstacleOne.png"]];
+        obstacleTwoTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-obstacleTwo.png"]];
+        bigObstacleTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-bigObstacle.png"]];
     }
     
+    
     [background setTexture:roadTexture];
-    [hole setTexture:holeTexture];
-    [destroyedCar setTexture:destroyedCarTexture];
+    [obstacleOne setTexture:obstacleOneTexture];
+    [obstacleOne setTextureRect:CGRectMake(0, 0, obstacleOneTexture.contentSize.width, obstacleOneTexture.contentSize.height)];
+    [obstacleTwo setTexture:obstacleTwoTexture];    
+    [obstacleTwo setTextureRect:CGRectMake(0, 0, obstacleTwoTexture.contentSize.width, obstacleTwoTexture.contentSize.height)];
+    [bigObstacle setTexture:bigObstacleTexture];
+    [bigObstacle setTextureRect:CGRectMake(0, 0, bigObstacleTexture.contentSize.width, bigObstacleTexture.contentSize.height)];
     
     [roadTexture release];
-    [holeTexture release];
-    [destroyedCarTexture release];
-    
+    [obstacleOneTexture release];
+    [obstacleTwoTexture release];
+    [bigObstacleTexture release];
 }
 
 -(void)saveHighScore
@@ -200,7 +216,9 @@
     
     [background release];
     [tunnel release];
-    [hole release];
+    [obstacleOne release];
+    [obstacleTwo release];    
+    [bigObstacle release];    
     [bottle release];
     [invincible release];
     [small release];
