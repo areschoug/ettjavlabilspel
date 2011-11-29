@@ -15,25 +15,26 @@
     self = [super init];
     if (self) {
         
-        background = [[CCSprite alloc] initWithFile:@"mainscreen-background.png"];
+        background = [[CCSprite alloc] initWithFile:@"cityroad.png"];
         background.position = ccp(160, 240);
         [self addChild:background];
         [background release];
+
         
         CCMenu *menu;
+        music = [CCMenuItemImage itemFromNormalImage:@"sound-music1.png" selectedImage:@"sound-music1.png" target:self selector:@selector(musicButtonClicked:)];
+        music.position = ccp(160, 300);
 
-        CCLabelTTF *musicLabel = [CCLabelTTF labelWithString:[self checkMusic] fontName:@"Helvetica" fontSize:24];
-        music = [CCMenuItemLabel itemWithLabel:musicLabel target:self selector:@selector(musicButtonClicked:)];
-        music.position = ccp(160, 260);
+        sfx = [CCMenuItemImage itemFromNormalImage:@"sound-sfx1.png" selectedImage:@"sound-sfx1.png" target:self selector:@selector(sfxButtonClicked:)];
+        sfx.position = ccp(160, 180);
         
-        CCLabelTTF *sfxLabel = [CCLabelTTF labelWithString:[self checkSfx] fontName:@"Helvetica" fontSize:24];
-        sfx = [CCMenuItemLabel itemWithLabel:sfxLabel target:self selector:@selector(sfxButtonClicked:)];
-        sfx.position = ccp(160, 220);
-        
+        [self checkMusic];
+        [self checkSfx];
+                
         CCMenuItemImage *back = [CCMenuItemImage itemFromNormalImage:@"back-button1.png" selectedImage:@"back-button2.png" target:self selector:@selector(backButtonClicked:)];
         back.position = ccp(250, 420);
         
-        menu = [CCMenu menuWithItems :music,sfx,back, nil];
+        menu = [CCMenu menuWithItems: music, sfx, back, nil];
 
         menu.position = ccp(0, 0);
         [self addChild:menu];
@@ -43,33 +44,30 @@
 
 -(void)musicButtonClicked:(id)sender
 {
-    if(![Game sharedGame].music){
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"music"]){
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"menu_music.mp3"];
         [Game sharedGame].musicPlaying = YES;
-        [Game sharedGame].music = YES;
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"music"];        
     }else{
         [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
         [Game sharedGame].musicPlaying = NO;
-        [Game sharedGame].music = NO;
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"music"];        
     }
     
-    [music setString:[self checkMusic]];
+    [self checkMusic];
 }
 
 -(void)sfxButtonClicked:(id)sender
 {
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"muteSfx"])
-    {
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"muteSfx"]){
         [[SimpleAudioEngine sharedEngine] setEffectsVolume:1];
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"muteSfx"];
-    }
-    else
-    {
+    } else {
         [[SimpleAudioEngine sharedEngine] setEffectsVolume:0];
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"muteSfx"];
     }
     
-    [sfx setString:[self checkSfx]];
+    [self checkSfx];
 }
 
 -(void) backButtonClicked:(id)sender
@@ -77,28 +75,31 @@
     [SceneManager goMenu];
 }
 
--(NSString *)checkMusic
+-(void)checkMusic
 {
-    NSString *musicString;    
+    NSString *musicImage;
     
-    if(![Game sharedGame].music)
-        musicString = @"Music: Off";
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"music"])
+        musicImage = @"sound-music2.png";
     else
-        musicString = @"Music: On";
+        musicImage = @"sound-music1.png";
     
-    return musicString;
+    
+    CCMenuItemImage *musicButton = [CCMenuItemImage itemFromNormalImage:musicImage selectedImage:musicImage];
+    [music setNormalImage:musicButton];
 }
 
--(NSString *) checkSfx
+-(void) checkSfx
 {
-    NSString *sfxString;
+    NSString *sfxImage;
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"muteSfx"])
-        sfxString = @"Sfx: Off";
+        sfxImage = @"sound-sfx2.png";
     else
-        sfxString = @"Sfx: On";
+        sfxImage = @"sound-sfx1.png";
     
-    return sfxString;
+    CCMenuItemImage *sfxButton = [CCMenuItemImage itemFromNormalImage:sfxImage selectedImage:sfxImage];
+    [sfx setNormalImage:sfxButton];
 }
 
 - (void)dealloc {

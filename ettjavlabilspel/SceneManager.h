@@ -11,7 +11,6 @@
 #import "GameOverLayer.h"
 #import "GameLayer.h"
 #import "HighScoreLayer.h"
-#import "GlobalHighScoreLayer.h"
 #import "SettingsLayer.h"
 #import "InstructionsLayer.h"
 #import "CarSelectLayer.h"
@@ -25,7 +24,6 @@
 +(void) goGame;
 +(void) goCarSelect;
 +(void) goHighScore;
-+(void) goGlobalHighScore;
 +(void) goGameOver;
 +(void) goSettings;
 +(void) goInstructions;

@@ -20,7 +20,6 @@
 -(id)init
 {
     if((self=[super init])){
-
         responsData = [[NSMutableData data] retain];
         int highestScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"highestScore"];
         NSString *username = [[NSUserDefaults standardUserDefaults] stringForKey:@"savedUsername"];
@@ -31,13 +30,21 @@
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
         [[NSURLConnection alloc] initWithRequest:request delegate:self];        
         
-        CCSprite *background = [[CCSprite alloc] initWithFile:@"mainscreen-background.png"];
+        CCSprite *background = [[CCSprite alloc] initWithFile:@"cityroad.png"];
         background.position = ccp(160, 240);
         [self addChild:background];
         [background release];
+
+        CCSprite *textBackground = [[CCSprite alloc] initWithFile:@"highscore-text.png"];
+        textBackground.position = ccp(160, 240);
+        [self addChild:textBackground];
+        [textBackground release];
+
+        
         
         loading = [CCLabelTTF labelWithString:@"Loading..." fontName:@"helvetica" fontSize:22];
         loading.position = ccp(160, 370);
+        loading.color = ccc3(17, 44, 0);
         [self addChild:loading];
         
         CCMenu *menu;
@@ -56,11 +63,6 @@
 -(void)backButtonClicked:(id) sender
 {  
     [SceneManager goMenu];
-}
-
--(void)changeHighscoreList:(id) sender
-{   
-    [SceneManager goGlobalHighScore];
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
@@ -86,52 +88,41 @@
     [responsData release];
  
     NSMutableArray *responsArray = [responsString JSONValue];
- 
-    
     
     NSMutableDictionary *responseDictionary = [responsArray objectAtIndex:0];
-    NSLog(@"dic - %i - %@ - dic",[responseDictionary count],responseDictionary);
-
     NSMutableArray *yourArray = [responseDictionary objectForKey:@"yourscore"];
     NSMutableDictionary *yourDictionary = [yourArray objectAtIndex:0];    
     NSString *positionString = [NSString stringWithFormat:@"You are ranked %@ in the world!",[yourDictionary objectForKey:@"position"]];
     
-    CCLabelTTF *scoreLable = [CCLabelTTF labelWithString:positionString fontName:@"helvetica" fontSize:22];
-    [scoreLable setColor:ccc3(255, 0, 0)];
-    scoreLable.position = ccp(160, 40);
-    
-    NSMutableArray *topArray = [responseDictionary objectForKey:@"topten"];
-    
-    NSLog(@"top array%@",topArray);
-    
-    int position = 370;
-    
+    CCLabelTTF *worldPositon = [CCLabelTTF labelWithString:positionString fontName:@"helvetica" fontSize:18];
+    worldPositon.position = ccp(160, 115);
+    worldPositon.color = ccc3(255, 0, 0);
+    [self addChild:worldPositon];
+
+    int position = 350;
+
+    [self removeChild:loading cleanup:YES];
     CCLabelTTF *headLine = [CCLabelTTF labelWithString:@"Global Highscore" fontName:@"helvetica" fontSize:22];
     headLine.position = ccp(160, position);
-    [self removeChild:loading cleanup:YES];
+    headLine.color = ccc3(17, 44, 0);
     [self addChild:headLine];
-
     
+    
+    NSMutableArray *topArray = [responseDictionary objectForKey:@"topten"];    
     for (int i = 0; [topArray count] > i ; i++) {
         NSMutableDictionary *topDictionary = [topArray objectAtIndex:i];
-        
-        NSLog(@" %@ - %i",topDictionary,[topDictionary count]);
-        
         NSString *username = [NSString stringWithFormat:[topDictionary objectForKey:@"username"] ];
         NSString *highscore = [NSString stringWithFormat:[topDictionary objectForKey:@"highscore"] ];
         NSString *printString = [NSString stringWithFormat:@"%@ - %@",username,highscore];
         
-        position -= 30;
+        position -= 20;
         
-        CCLabelTTF *scoreLable = [CCLabelTTF labelWithString:printString fontName:@"helvetica" fontSize:22];
+        CCLabelTTF *scoreLable = [CCLabelTTF labelWithString:printString fontName:@"helvetica" fontSize:18];
         scoreLable.position = ccp(160, position);
+        scoreLable.color = ccc3(17, 44, 0);
         [self addChild:scoreLable];
         
     }
-    
-
-    
-    [self addChild:scoreLable];
 }
 
 

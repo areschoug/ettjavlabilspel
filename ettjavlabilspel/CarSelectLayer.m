@@ -16,7 +16,7 @@
     if (self) {
         CCMenu *menu;
        
-        background = [[CCSprite alloc] initWithFile:@"mainscreen-background.png"];
+        background = [[CCSprite alloc] initWithFile:@"cityroad.png"];
         background.position = ccp(160, 240);
         [self addChild:background];
         [background release];
@@ -81,28 +81,38 @@
 
         
         if(highestScore < 200){
-            CCMenuItemImage *lock = [CCMenuItemImage itemFromNormalImage:@"glow.png" selectedImage:@"glow.png"];
+            CCMenuItemImage *lock = [CCMenuItemImage itemFromNormalImage:@"lock.png" selectedImage:@"lock.png"];
             [sportcar setNormalImage:lock];
+            [sportcar   setSelectedImage:lock];            
+            sportcar.position = ccp(sportcar.position.x - 10, sportcar.position.y);            
         }
         
         if(highestScore < 400){
-            CCMenuItemImage *lock = [CCMenuItemImage itemFromNormalImage:@"glow.png" selectedImage:@"glow.png"];
+            CCMenuItemImage *lock = [CCMenuItemImage itemFromNormalImage:@"lock.png" selectedImage:@"lock.png"];
             [jeep setNormalImage:lock];
+            [jeep setSelectedImage:lock];
+            jeep.position = ccp(jeep.position.x - 10, jeep.position.y);            
         }
         
         if(highestScore < 600){
-            CCMenuItemImage *lock = [CCMenuItemImage itemFromNormalImage:@"glow.png" selectedImage:@"glow.png"];
+            CCMenuItemImage *lock = [CCMenuItemImage itemFromNormalImage:@"lock.png" selectedImage:@"lock.png"];
             [bat setNormalImage:lock];
+            [bat setSelectedImage:lock];            
+            bat.position = ccp(bat.position.x - 10, bat.position.y);            
         }
         
         if(highestScore < 1000){
-            CCMenuItemImage *lock = [CCMenuItemImage itemFromNormalImage:@"glow.png" selectedImage:@"glow.png"];
+            CCMenuItemImage *lock = [CCMenuItemImage itemFromNormalImage:@"lock.png" selectedImage:@"lock.png"];
             [army setNormalImage:lock];
+            [army setSelectedImage:lock];
+            army.position = ccp(army.position.x - 10, army.position.y);            
         }
         
         if(highestScore < 1200){
-            CCMenuItemImage *lock = [CCMenuItemImage itemFromNormalImage:@"glow.png" selectedImage:@"glow.png"];
+            CCMenuItemImage *lock = [CCMenuItemImage itemFromNormalImage:@"lock.png" selectedImage:@"lock.png"];
             [dream setNormalImage:lock];
+            [dream setSelectedImage:lock];
+            dream.position = ccp(dream.position.x - 10, dream.position.y);
         }
         
         menu = [CCMenu menuWithItems:play, greencar, sportcar, jeep, bat, army, dream, back, nil];
@@ -138,19 +148,19 @@
             }
             break;
         case 3:
-            if(highestScore > 600){
+            if(highestScore > 800){
                 [Game sharedGame].carColor = 3;
                 glow.position = bat.position;
             }
             break;
         case 4:
-            if(highestScore > 800){
+            if(highestScore > 1600){
                 [Game sharedGame].carColor = 4;
                 glow.position = army.position;
             }
             break;
         case 5:
-            if(highestScore > 1000){    
+            if(highestScore > 3200){    
                 [Game sharedGame].carColor = 5;
                 glow.position = dream.position;
             }

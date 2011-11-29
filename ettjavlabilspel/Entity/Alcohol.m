@@ -10,7 +10,7 @@
         [startingPoints addObject:@"128"];
         [startingPoints addObject:@"192"];
         [startingPoints addObject:@"256"];
-        startRate = 1000;
+        startRate = 3000;
     }
     return self;
 }

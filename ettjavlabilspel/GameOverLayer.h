@@ -18,12 +18,14 @@
     CCSprite *obstacleOne;
     CCSprite *obstacleTwo;    
     CCSprite *bigObstacle;
+    CCSprite *movingObstacle;    
     //POWERUPS
     CCSprite *bottle;
-    CCSprite *invincible;
+    CCSprite *immortal;
     CCSprite *small;
     CCSprite *gun;
     CCSprite *bullet;
+   
     CCSprite *slow;
     CCSprite *fast;
     

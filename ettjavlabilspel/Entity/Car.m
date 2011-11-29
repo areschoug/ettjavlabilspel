@@ -5,7 +5,7 @@
 @synthesize carPosition;
 @synthesize spriteImage;
 
--(void) moveX:(float)accX moveY:(float)accY{
+-(void) moveX:(float)accX moveY:(float)accY drunk:(BOOL)drunk{
     accY += 0.55;
     
     //MOVEMENT
@@ -25,13 +25,13 @@
     }
     
     
-    if(-0.05 < accY && accY < 0.05){
-        accY=0;
+    if(-0.02 < accY && accY < 0.02){
+        accY = 0;
     }
     
     
-    int newPosX = self.position.x+(accX*60);
-    int newPosY = self.position.y+((accY)*60);
+    int newPosX = self.position.x+(accX*35);
+    int newPosY = self.position.y+((accY)*50);
     
     
     if(newPosX > screenSize.width-width/2){
@@ -50,21 +50,29 @@
         donePosY = newPosY;
     }
     
-    if (oldPosY-10 > donePosY  ) {
-        [[SimpleAudioEngine sharedEngine] playEffect:@"tirebreak.mp3"];
+    if(audioTicker < 0){
+        if (oldPosY-15 > donePosY  ) {
+            [[SimpleAudioEngine sharedEngine] playEffect:@"tirebreak.mp3"];
+            audioTicker = 50;
+        }
+    
+        if (oldPosY+15 < donePosY){
+            [[SimpleAudioEngine sharedEngine] playEffect:@"accelerate.mp3"];    
+            audioTicker = 50;
+        }
     }
     
-    if (oldPosY+10 < donePosY){
-        [[SimpleAudioEngine sharedEngine] playEffect:@"accelerate.mp3"];    
-    }
-    
+    audioTicker--;
+
     [self runAction:[CCMoveTo actionWithDuration:1/60 position:ccp(donePosX, donePosY)]];
     
+    
+    if (!drunk){
     //ROTATION
     float carRotation;
     
     if (accX > 0.1 || accX < -0.1) {
-        carRotation = self.rotation + (accX * 10);
+        carRotation = self.rotation + (accX * 3);
         if(carRotation < 0 && accX > 0.2){
             carRotation = 0;
         }else if(carRotation > 0 && accX < -0.2){
@@ -88,9 +96,8 @@
         }
     }
     
-    
-    [self runAction:[CCRotateTo actionWithDuration:1/10 angle:carRotation]];    
-
+    [self runAction:[CCRotateTo actionWithDuration:1/60 angle:carRotation]];    
+    }
 }
 
 -(float)scoreMultiplier

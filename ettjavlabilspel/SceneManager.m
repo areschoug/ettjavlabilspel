@@ -34,13 +34,6 @@
 
 }
 
-+(void) goGlobalHighScore
-{
-    CCLayer *layer = [GlobalHighScoreLayer node];
-    [SceneManager go: layer];
-    
-}
-
 +(void) goGameOver
 {
     CCLayer *layer = [GameOverLayer node];

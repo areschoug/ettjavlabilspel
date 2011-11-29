@@ -12,12 +12,12 @@
 #import "SimpleAudioEngine.h"
 
 @interface SettingsLayer : CCLayer {
-    CCMenuItemLabel *music;
-    CCMenuItemLabel *sfx;
+    CCMenuItemImage *music;
+    CCMenuItemImage *sfx;
     CCSprite *background;
 }
 
--(NSString *)checkMusic;
--(NSString *)checkSfx;
+-(void)checkMusic;
+-(void)checkSfx;
 
 @end

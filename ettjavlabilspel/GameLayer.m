@@ -16,6 +16,8 @@
 CCSprite *paus;
 int state;
 int stateTimer;
+int speedState;
+int speedStateTimer;
 
 -(id)init
 {
@@ -31,14 +33,10 @@ int stateTimer;
         self.isAccelerometerEnabled = YES;
         [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
         
-        playing = YES;
-
         //MUSIC
-        if(![Game sharedGame].music)
+        if([[NSUserDefaults standardUserDefaults] boolForKey:@"music"])
         {
-            if ([[MPMusicPlayerController iPodMusicPlayer] playbackState] != MPMusicPlaybackStatePlaying) {
-                [[SimpleAudioEngine sharedEngine]playBackgroundMusic:@"music.mp3"];
-            }   
+            [[SimpleAudioEngine sharedEngine]playBackgroundMusic:@"music.mp3"];
         }
           
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"muteSfx"])
@@ -54,6 +52,7 @@ int stateTimer;
         
         //SCORE
         scoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%i",score]] fontName:@"helvetica" fontSize:22];
+        scoreLabel.color = ccc3(17, 44, 0);
         scoreLabel.position = ccp(65, 465);
 
         CCSprite *scoreBackground = [CCSprite spriteWithFile:@"ingame-score.png"];
@@ -111,6 +110,13 @@ int stateTimer;
         bigObstacle = [[BigObstacle alloc] initWithFile:@"city-bigObstacle.png"];
         bigObstacle.position = [Game sharedGame].bigObstaclePosition;
         
+        //init moving obstacle
+        movingTexture1 = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"city-moving1.png"]];
+        movingTexture2 = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"city-moving2.png"]];
+        movingObstacle = [[MovingObstacle alloc] initWithTexture:movingTexture1];
+        movingObstacle.rotation = 40;
+        movingObstacle.position = ccp(1000, 1000);
+        
         //POWERUPS
         
         //init bottle
@@ -119,9 +125,9 @@ int stateTimer;
         [bottle runAction:[CCRepeatForever actionWithAction:[CCRotateBy actionWithDuration:3 angle:360]]];        
 
         //init invicible
-        invincible = [[Immortal alloc] initWithFile:@"immortal.png"];
-        invincible.position = [Game sharedGame].inviciblePosition;
-        [invincible runAction:[CCRepeatForever actionWithAction:[CCRotateBy actionWithDuration:3 angle:360]]];
+        immortal = [[Immortal alloc] initWithFile:@"immortal.png"];
+        immortal.position = [Game sharedGame].immortalPosition;
+        [immortal runAction:[CCRepeatForever actionWithAction:[CCRotateBy actionWithDuration:3 angle:360]]];
         
         //init small
         small = [[Small alloc] initWithFile:@"smaller.png"];
@@ -137,6 +143,10 @@ int stateTimer;
         bullet = [[Bullet alloc] initWithFile:@"bullet.png"];
         bullet.position = [Game sharedGame].gunPosition;
 
+        //init car gun
+        carGun = [[CCSprite alloc] initWithFile:@"car-gun.png"];
+        carGun.position = [Game sharedGame].carGunPosition;
+        
         //init slow
         slow = [[Slow alloc] initWithFile:@"slow.png"];
         slow.position = [Game sharedGame].slowPosition;
@@ -156,129 +166,42 @@ int stateTimer;
         [self addChild:obstacleOne];
         [self addChild:obstacleTwo];
         [self addChild:bigObstacle];
+        [self addChild:movingObstacle];
         [self addChild:bottle];
-        [self addChild:invincible];
+        [self addChild:immortal];
         [self addChild:small];
         [self addChild:gun];
         [self addChild:bullet];
         [self addChild:car];
+        [self addChild:carGun];
         [self addChild:tunnel];
         [self addChild:menu];
         [self addChild:scoreBackground];
         [self addChild:scoreLabel];
-        
-        [[UIAccelerometer sharedAccelerometer]setUpdateInterval:1/60];
+
+        playing = YES;
+
+        [[UIAccelerometer sharedAccelerometer]setUpdateInterval:1.0f/40.0f];
         [self schedule:@selector(callEveryFrame:)];
-        [self schedule:@selector(speedChange:) interval:15];
+        [self schedule:@selector(speedChange:) interval:1];
+        [self schedule:@selector(movingTexture:) interval:.3];
     }
     return self;
 }
 
 - (void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate: (UIAcceleration*)acceleration
 {
-
     if(playing){
-    float accX = ceilf([acceleration x] * 100 + 0.5) / 100;
-    float accY = ceilf([acceleration y] * 100 + 0.5) / 100;    
+        accX = ceilf([acceleration x] * 100 + 0.5) / 100;
+        accY = ceilf([acceleration y] * 100 + 0.5) / 100;    
     
-
-    //If drunk revert the steering(right-left) by multiply with -1 
-    if(state == 1){
-        //DRUNK
-        accX = accX *-1;
-
-    }
-    
-    if(state != 0)
-        stateTimer -= 1;
-    
-    [car moveX:accX moveY:accY];
-
-   
-    //RESETER
-    if(state > 0 && stateTimer < 1){
-        switch (state) {
-            case 1:
-                //DRUNK
-                break;
-            case 2:
-                //INVICIBLE
-                car.opacity = 255;
-                break;
-            case 3:
-                //SMALL
-                [car runAction:[CCScaleTo actionWithDuration:.3 scale:1]];
-                [car runAction:[CCScaleTo actionWithDuration:.3 scale:0.9]];
-                [car runAction:[CCScaleTo actionWithDuration:.3 scale:1]];
-                break;
-            case 4:
-                bullet.position = ccp(1000, 1000);
-                break;
-            case 5:
-                //SLOW
-                gameSpeed = realGameSpeed;
-                break;
-            case 6:
-                //FAST
-                gameSpeed = realGameSpeed;
-                break;
-            default:
-                break;
-        }
-        state = 0;
-    }
-    
-    //If the player isn't affected by a powerup and collide with a bottle of alcohol the player
-    //becomes drunk, and the bottle will be moved off screen
-    if(state == 0  && [bottle collision:car]){
-        state = 1;
-        stateTimer = 50;
-        bottle.position = ccp(-100, 100);
-        //score += 100 * gameSpeed;
-    }
-    
-    //If the player isn't affected by a powerup and collide with an unit of invicibility the player
-    //becomes invnicible, and the unit of invicibility will be moved off screen
-    if (state == 0 && [invincible collision:car]) {
-        state = 2;
-        stateTimer = 50;
-        invincible.position = ccp(-100, 100);
-        car.opacity = 160;
-    }
-    
-    
-    if (state == 0 && [small collision:car]) {
-        state = 3;
-        stateTimer = 50;
-        small.position = ccp(-100, 100);
-        [car runAction:[CCScaleTo actionWithDuration:.3 scale:0.75]];
-        [car runAction:[CCScaleTo actionWithDuration:.3 scale:0.9]];
-        [car runAction:[CCScaleTo actionWithDuration:.3 scale:0.75]];
-    }
-    
-    if (state == 0 && [gun collision:car]) {
-        state = 4;
-        stateTimer = 50;
-        gun.position = ccp(-100, 100);
-        bullet.position = car.position;
-    }
-    
-    //SLOW
-    if (state == 0 && [slow collision:car]){
-        state = 5;
-        stateTimer = 50;
-        realGameSpeed = gameSpeed;
-        gameSpeed -= gameSpeed/2;
-    }
-
-    //FAST
-    if (state == 0 && [fast collision:car]){
-        state = 5;
-        stateTimer = 50;
-        realGameSpeed = gameSpeed;
-        gameSpeed += gameSpeed/2;
-    }
+        //If drunk revert the steering(right-left) by multiply with -1 
+        if(state == 1)
+            accX = accX *-1;
         
+        [car moveX:accX moveY:accY drunk:drunk];
+    }
+    
     /*
     // Vibration i kanten
     // Ta bort?
@@ -288,7 +211,6 @@ int stateTimer;
         AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
     }
     */
-    }
 }
 
     /* menuItemClicked: (id)sender
@@ -302,25 +224,33 @@ int stateTimer;
 {
     
     if(![[CCDirector sharedDirector] isPaused]){
+        playing = NO;
+        
+        [[SimpleAudioEngine sharedEngine] setEffectsVolume:0];
         [menu setOpacity:0];
         
         [[CCDirector sharedDirector] pause];
         
         CCMenuItemImage *returnButton = [CCMenuItemImage itemFromNormalImage:@"pause-continue1.png" selectedImage:@"pause-continue2.png" target:self selector:@selector(pauseMenuItemClicked:)];
+        music = [CCMenuItemImage itemFromNormalImage:@"sound-music1.png" selectedImage:@"sound-music1.png" target:self selector:@selector(musicButtonClicked:)];
+        sfx = [CCMenuItemImage itemFromNormalImage:@"sound-sfx1.png" selectedImage:@"sound-sfx1.png" target:self selector:@selector(sfxButtonClicked:)];
         
         CCMenuItemImage *menuButton = [CCMenuItemImage itemFromNormalImage:@"pause-mainmenu1.png" selectedImage:@"pause-mainmenu2.png" target:self selector:@selector(pauseMenuItemClicked:)];
         
         returnButton.position = ccp(0, 100);
-        menuButton.position = ccp(0, 0);
+        music.position = ccp(-65, 0);
+        sfx.position = ccp(65, 0);
+        menuButton.position = ccp(0, -100);
         
         returnButton.tag = 1;
         menuButton.tag = 2;
         
-        pauseMenu = [CCMenu menuWithItems:returnButton,menuButton, nil];
+        [self checkMusic];
+        [self checkSfx];
         
-        menu.position = ccp(0, 0);
-        
+        pauseMenu = [CCMenu menuWithItems:returnButton, music, sfx, menuButton, nil];
         [self addChild:pauseMenu];
+        
         
     }
     
@@ -329,9 +259,14 @@ int stateTimer;
 -(void)pauseMenuItemClicked:(id)sender{
     switch ([sender tag]) {
         case 1:
+            playing = YES;
             [menu setOpacity:255];
             [[CCDirector sharedDirector] resume];
             [self removeChild:pauseMenu cleanup:YES];
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"muteSfx"])
+                [[SimpleAudioEngine sharedEngine] setEffectsVolume:0];
+            else
+                [[SimpleAudioEngine sharedEngine] setEffectsVolume:1];
             break;
         case 2:
             [[CCDirector sharedDirector] resume];
@@ -343,9 +278,42 @@ int stateTimer;
     }
 }
 
+-(void)musicButtonClicked:(id)sender
+{
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"music"]){
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"menu_music.mp3"];
+        [Game sharedGame].musicPlaying = YES;
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"music"];        
+    }else{
+        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+        [Game sharedGame].musicPlaying = NO;
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"music"];        
+    }
+    
+    [self checkMusic];
+}
+
+-(void)sfxButtonClicked:(id)sender
+{
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"muteSfx"])
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"muteSfx"];
+    else     
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"muteSfx"];
+    
+    [self checkSfx];
+}
+
 -(void)callEveryFrame:(ccTime)dt
 {
     if (playing) {
+        
+        if (obstacleOne.position.y + 250 > obstacleTwo.position.y && obstacleOne.position.y < obstacleTwo.position.y) {
+            obstacleTwo.position = ccp(obstacleTwo.position.x,  obstacleTwo.position.y + 350);
+        }
+        
+        if (obstacleTwo.position.y + 250 > obstacleOne.position.y && obstacleTwo.position.y < obstacleOne.position.y) {
+            obstacleOne.position = ccp(obstacleOne.position.x,  obstacleOne.position.y + 350);
+        }
         
         //BACKGROUND
         if (background.position.y <= 240-20) {
@@ -370,14 +338,18 @@ int stateTimer;
         }
         
         if([obstacleOne collision:tunnel]){
-            obstacleOne.position = ccp(obstacleOne.position.x + 500, obstacleOne.position.y);
+            obstacleOne.position = ccp(obstacleOne.position.x, obstacleOne.position.y + 500);
         }
 
         if([obstacleTwo collision:tunnel]){
-            obstacleTwo.position = ccp(obstacleTwo.position.x + 500, obstacleTwo.position.y);
+            obstacleTwo.position = ccp(obstacleTwo.position.x, obstacleTwo.position.y + 500);
         }
         
         if([bigObstacle collision:tunnel]){
+            bigObstacle.position = ccp(bigObstacle.position.x, bigObstacle.position.y + 500);
+        }
+
+        if([movingObstacle collision:tunnel]){
             bigObstacle.position = ccp(bigObstacle.position.x + 500, bigObstacle.position.y);
         }
         
@@ -385,8 +357,8 @@ int stateTimer;
             bottle.position = ccp(bottle.position.x + 500, bottle.position.y);
         }
         
-        if ([invincible collision:tunnel]) {
-            invincible.position = ccp(invincible.position.x + 500, invincible.position.y);
+        if ([immortal collision:tunnel]) {
+            immortal.position = ccp(immortal.position.x + 500, immortal.position.y);
         }
 
         if ([small collision:tunnel]) {
@@ -405,13 +377,14 @@ int stateTimer;
             slow.position = ccp(slow.position.x + 500, slow.position.y );
         }
         
-        if (score/10 >= changeScore) {
+        if (score/10 >= changeScore && level < 4 ) {
             tunnel.position = ccp(160, 1000);
             changeScore += [Game sharedGame].changeScore;
         }
         
         if (textureChanged == NO  && tunnel.position.y-50  < 240) {
             level += 1;
+            gameSpeed -= gameSpeed/2;
             [self setTexture];
         }
         
@@ -420,18 +393,111 @@ int stateTimer;
         [tunnel         goX:0   goY:-gameSpeed];
         [obstacleOne    objectGoX:0 objectGoY:-gameSpeed];
         [obstacleTwo    objectGoX:0 objectGoY:-gameSpeed];        
-        [bottle         objectGoX:0 objectGoY:-gameSpeed]; 
         [bigObstacle    objectGoX:0 objectGoY:-gameSpeed];
-        [invincible     objectGoX:0 objectGoY:-gameSpeed];
+        [movingObstacle movingObjectGoX:gameSpeed/2 movingObjectGoY:gameSpeed/3];
+        [bottle         objectGoX:0 objectGoY:-gameSpeed]; 
+        [immortal       objectGoX:0 objectGoY:-gameSpeed];
         [small          objectGoX:0 objectGoY:-gameSpeed];
         [gun            objectGoX:0 objectGoY:-gameSpeed];
         [slow           objectGoX:0 objectGoY:-gameSpeed];    
         [fast           objectGoX:0 objectGoY:-gameSpeed];
 
-    
+        if(state != 0)
+            stateTimer --;
+        
+        if(speedState != 0)
+            speedStateTimer --;
+        
+        //POWER UP RESETER
+        if(state > 0 && stateTimer < 1){
+            switch (state) {
+                case 1:
+                    drunk = NO;
+                    car.rotation = 0;
+                    break;
+                case 2:
+                    //IMMORTAL
+                    car.opacity = 255;
+                    break;
+                case 3:
+                    //SMALL
+                    [car runAction:[CCScaleTo actionWithDuration:.3 scale:1]];
+                    [car runAction:[CCScaleTo actionWithDuration:.3 scale:0.9]];
+                    [car runAction:[CCScaleTo actionWithDuration:.3 scale:1]];
+                    break;
+                case 4:
+                    //GUN
+                    bullet.position = ccp(1000, 1000);
+                    carGun.position = ccp(1000, 1000);
+                    break;
+                default:
+                    break;
+            }
+            state = 0;
+        }
+        
+        //SPEED RESETER
+        if (speedState > 0 && speedStateTimer < 1) {
+            gameSpeed = realGameSpeed;
+            speedState = 0;
+        }
+
+        if(state == 1){
+            car.rotation += 1.2;
+        }        
+        
+        //If the player isn't affected by a powerup and collide with a bottle of alcohol the player
+        //becomes drunk, and the bottle will be moved off screen
+        if(state == 0  && [bottle collision:car]){
+            state = 1;
+            stateTimer = 300;
+            bottle.position = ccp(-100, 100);
+            drunk = YES;
+        }
+        
+        //If the player isn't affected by a powerup and collide with an unit of invicibility the player
+        //becomes invnicible, and the unit of invicibility will be moved off screen
+        if (state == 0 && [immortal collision:car]) {
+            state = 2;
+            stateTimer = 300;
+            immortal.position = ccp(-100, 100);
+            car.opacity = 160;
+        }
+        
+        if (state == 0 && [small collision:car]) {
+            state = 3;
+            stateTimer = 300;
+            small.position = ccp(-100, 100);
+            [car runAction:[CCScaleTo actionWithDuration:.3 scale:0.75]];
+        }
+        
+        if (state == 0 && [gun collision:car]) {
+            state = 4;
+            stateTimer = 300;
+            gun.position = ccp(-100, 100);
+            carGun.position = ccp(car.position.x, car.position.y +10);
+            bullet.position = car.position;
+        }
+        
+        //SLOW
+        if (speedState == 0 && [slow collision:car]){
+            speedState = 1;
+            speedStateTimer = 300;
+            realGameSpeed = gameSpeed;
+            gameSpeed -= gameSpeed/4;
+        }
+        
+        //FAST
+        if (speedState == 0 && [fast collision:car]){
+            speedState = 2;
+            speedStateTimer = 300;
+            realGameSpeed = gameSpeed;
+            gameSpeed += gameSpeed/4;
+        }
         
         if(state == 4){
             [bullet objectGoX:0 objectGoY:gameSpeed + 1 car:car.position];
+            carGun.position = ccp(car.position.x, car.position.y +10);
         }
     
         //CHECK IF BULLET HIT
@@ -450,9 +516,9 @@ int stateTimer;
         }    
     
         //Collision by car results in a game ending tragedy
-        if(([bigObstacle collision:car] || [obstacleOne collision:car] || [obstacleTwo collision:car]) && state != 2){
-            [self saveState];
+        if(([bigObstacle collision:car] || [obstacleOne collision:car] || [obstacleTwo collision:car] || [movingObstacle collision:car]) && state != 2){
             playing = NO;
+            [self saveState];
             [SceneManager goGameOver];
         }    
         
@@ -464,7 +530,8 @@ int stateTimer;
 
 -(void)speedChange:(ccTime) dt
 {
-    gameSpeed += 1;
+    NSLog(@"GAME speed %f",gameSpeed);
+    gameSpeed += .1;
 }
 
 -(void) setTexture
@@ -478,24 +545,28 @@ int stateTimer;
         roadTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sandroad.png"]];
         obstacleOneTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-obstacleOne.png"]];
         obstacleTwoTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-obstacleTwo.png"]];
-        bigObstacleTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-bigObstacle.png"]];
-        
         obstacleTwo.rotation = 320;
-        
+        bigObstacleTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-bigObstacle.png"]];
+        movingTexture1 = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-moving1.png"]];
+        movingTexture2 = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-moving2.png"]];
         repeatRate = 79;
     }else if (level == 3){
-        roadTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"iceroad2.png"]];
+        roadTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"iceroad.png"]];
         obstacleOneTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"ice-obstacleOne.png"]];
         obstacleTwoTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"ice-obstacleTwo.png"]];
-        bigObstacleTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"ice-bigObstacle.png"]];
-
         obstacleTwo.rotation = 0;
-        
+        bigObstacleTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"ice-bigObstacle.png"]];
+        movingTexture1 = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"ice-moving1.png"]];
+        movingTexture2 = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"ice-moving2.png"]];
         repeatRate = 64;
     }else if(level >= 4){
-        obstacleOneTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-obstacleOne.png"]];
-        obstacleTwoTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-obstacleTwo.png"]];
-        bigObstacleTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sand-bigObstacle.png"]];
+        roadTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"rainbow.png"]];
+        obstacleOneTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"rainbow-obstacleOne.png"]];
+        obstacleTwoTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"rainbow-obstacleTwo.png"]];
+        bigObstacleTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"rainbow-bigObstacle.png"]];
+        movingTexture1 = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"rainbow-moving1.png"]];
+        movingTexture2 = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"rainbow-moving2.png"]];
+        movingObstacle.rotation = 0;
         repeatRate = 41;
     }
 
@@ -506,6 +577,9 @@ int stateTimer;
     [obstacleTwo setTextureRect:CGRectMake(0, 0, obstacleTwoTexture.contentSize.width, obstacleTwoTexture.contentSize.height)];
     [bigObstacle setTexture:bigObstacleTexture];
     [bigObstacle setTextureRect:CGRectMake(0, 0, bigObstacleTexture.contentSize.width, bigObstacleTexture.contentSize.height)];
+    [movingObstacle setTexture:movingTexture1];
+    [movingObstacle setTextureRect:CGRectMake(0, 0, movingTexture1.contentSize.width, movingTexture1.contentSize.height)];
+    
     
     [roadTexture release];
     [obstacleOneTexture release];
@@ -534,15 +608,56 @@ int stateTimer;
     [Game sharedGame].obstacleOnePosition = obstacleOne.position;
     [Game sharedGame].obstacleTwoPosition = obstacleTwo.position;
     [Game sharedGame].bigObstaclePosition = bigObstacle.position;
-
+    [Game sharedGame].movingObstaclePosition = movingObstacle.position;
+    
     [Game sharedGame].bottlePosition = bottle.position;
-    [Game sharedGame].inviciblePosition = invincible.position;
+    [Game sharedGame].immortalPosition = immortal.position;
     [Game sharedGame].gunPosition = gun.position;
     [Game sharedGame].bulletPosition = bullet.position;
+    [Game sharedGame].carGunPosition = carGun.position;
     [Game sharedGame].smallPosition = small.position;
     [Game sharedGame].fastPosition = fast.position;
     [Game sharedGame].slowPosition = slow.position;
     [Game sharedGame].tunnelPosition = tunnel.position;
+}
+
+-(void)checkMusic
+{
+    NSString *musicImage;
+    
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"music"])
+        musicImage = @"sound-music2.png";
+    else
+        musicImage = @"sound-music1.png";
+    
+    
+    CCMenuItemImage *musicButton = [CCMenuItemImage itemFromNormalImage:musicImage selectedImage:musicImage];
+    [music setNormalImage:musicButton];
+}
+
+-(void) checkSfx
+{
+    NSString *sfxImage;
+    
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"muteSfx"])
+        sfxImage = @"sound-sfx2.png";
+    else
+        sfxImage = @"sound-sfx1.png";
+   
+    CCMenuItemImage *sfxButton = [CCMenuItemImage itemFromNormalImage:sfxImage selectedImage:sfxImage];
+    [sfx setNormalImage:sfxButton];
+}
+
+-(void) movingTexture:(ccTime) dt
+{
+    if(movingTexture == 1){
+        movingTexture = 2;
+        [movingObstacle setTexture:movingTexture1];
+    }else{
+        movingTexture = 1;
+        [movingObstacle setTexture:movingTexture2];
+    }
+    
 }
 
 - (void) dealloc
@@ -555,8 +670,11 @@ int stateTimer;
     [obstacleOne release];
     [obstacleTwo release];
     [bigObstacle release];    
+    [movingObstacle release];
+    [movingTexture1 release];
+    [movingTexture2 release];
     [bottle release];
-    [invincible release];
+    [immortal release];
     [small release];
     [fast release];
     [slow release];

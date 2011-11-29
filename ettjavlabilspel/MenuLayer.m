@@ -60,18 +60,11 @@
     
     
 
-    if ([[MPMusicPlayerController iPodMusicPlayer] playbackState] != MPMusicPlaybackStatePlaying && [Game sharedGame].music && ![Game sharedGame].musicPlaying) {
+    if ([[MPMusicPlayerController iPodMusicPlayer] playbackState] != MPMusicPlaybackStatePlaying && [[NSUserDefaults standardUserDefaults] boolForKey:@"music"] && ![Game sharedGame].musicPlaying) {
         [[SimpleAudioEngine sharedEngine]playBackgroundMusic:@"menu_music.mp3"];
         [Game sharedGame].musicPlaying = YES;
     }
 
-    /*
-    
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"mute"])
-        [[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:0];
-    else
-        [[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:1];
-    */
     [self schedule:@selector(burningCar:) interval:.3];
     
     return self;
@@ -174,11 +167,6 @@
 -(void)backButtonClicked:(id) sender
 {  
     [SceneManager goMenu];
-}
-
--(void)changeHighscoreList:(id) sender
-{   
-    [SceneManager goGlobalHighScore];
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response

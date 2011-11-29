@@ -10,6 +10,7 @@
 #import "cocos2d.h"
 #import "Obstacle.h"
 #import "BigObstacle.h"
+#import "MovingObstacle.h"
 #import "Alcohol.h"
 #import "Immortal.h"
 #import "Small.h"
@@ -41,12 +42,14 @@
     @public CGPoint obstacleOnePosition;
     @public CGPoint obstacleTwoPosition;    
     @public CGPoint bigObstaclePosition;
-
+    @public CGPoint movingObstaclePosition;
+    
     @public CGPoint bottlePosition;
-    @public CGPoint inviciblePosition;
+    @public CGPoint immortalPosition;
     @public CGPoint smallPosition;
     @public CGPoint gunPosition;
     @public CGPoint bulletPosition;
+    @public CGPoint carGunPosition;
     @public CGPoint fastPosition;
     @public CGPoint slowPosition;
     @public CGPoint tunnelPosition;
@@ -73,12 +76,14 @@
 @property(readwrite,assign) CGPoint obstacleOnePosition;
 @property(readwrite,assign) CGPoint obstacleTwoPosition;
 @property(readwrite,assign) CGPoint bigObstaclePosition;
+@property(readwrite,assign) CGPoint movingObstaclePosition;
 
 @property(readwrite,assign) CGPoint bottlePosition;
-@property(readwrite,assign) CGPoint inviciblePosition;;
+@property(readwrite,assign) CGPoint immortalPosition;;
 @property(readwrite,assign) CGPoint smallPosition;
 @property(readwrite,assign) CGPoint gunPosition;
 @property(readwrite,assign) CGPoint bulletPosition;
+@property(readwrite,assign) CGPoint carGunPosition;
 @property(readwrite,assign) CGPoint fastPosition;
 @property(readwrite,assign) CGPoint slowPosition;
 @property(readwrite,assign) CGPoint tunnelPosition;
