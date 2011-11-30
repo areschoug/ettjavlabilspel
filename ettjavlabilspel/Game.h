@@ -1,9 +1,12 @@
 //
-//  Game.h
-//  ettjavlabilspel
+// Game.h
+// ettjavlabilspel
 //
-//  Created by Andreas Areschoug.
+// Created by Andreas Areschoug.
 //
+// This is a singelton-class wich keeps track of the current gamestate when the 
+// gamelayer is initialized. It also containes the starting values and positions of
+// ingame objects.
 
 
 #import <Foundation/Foundation.h>
@@ -90,6 +93,4 @@
 
 +(Game*)sharedGame;
 -(void)resetGame;
--(void)startGame;
--(int)highestScore:(NSArray *)highScore;
 @end

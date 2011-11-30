@@ -1,9 +1,10 @@
 //
-//  GameLayer.h
-//  ettjavlabilspel
+// GameLayer.h
+// ettjavlabilspel
 //
-//  Created by Andreas Areschoug.
+// Created by Andreas Areschoug.
 //
+// This is where all game logic starts from.
 
 
 #import <Foundation/Foundation.h>
@@ -73,6 +74,7 @@
     BOOL tunnlePlaced;
     BOOL playing;
     BOOL drunk;
+    NSString *carColor;
 }
 
 

@@ -117,12 +117,11 @@
         [self addChild:tunnel];
         
         
-        
         //MENU
         CCMenu *menu;
         
         //init highscorebackground
-        CCSprite *highscoreBackgound = [[CCSprite alloc]initWithFile:@"endgame-highscore.png"];
+        highscoreBackgound = [[CCSprite alloc]initWithFile:@"endgame-highscore.png"];
         highscoreBackgound.position = ccp(160, 355);
         [self addChild:highscoreBackgound];
         
@@ -164,24 +163,37 @@
     return self;
 }
 
+/* backButtonClicked:(id)sender
+ *
+ * go the the main menu
+ */
 -(void)backButtonClicked:(id)sender
 {
     [SceneManager goMenu];
 }
 
+/* retryButtonClicked:(id)sender
+ *
+ * starts the game again.
+ */
 -(void)retryButtonClicked:(id)sender
 {
     [[Game sharedGame]resetGame];
     [SceneManager goGame];
 }
 
+/* setTexture
+ *
+ * set the texture if the layer is on lever 2, 3 or 4
+ */
+
 -(void) setTexture
 {
-    CCTexture2D *roadTexture;
-    CCTexture2D *obstacleOneTexture;
-    CCTexture2D *obstacleTwoTexture;    
-    CCTexture2D *bigObstacleTexture;
-    CCTexture2D *movingObstacleTexture;
+    CCTexture2D *roadTexture = [CCTexture2D init];
+    CCTexture2D *obstacleOneTexture = [CCTexture2D init];
+    CCTexture2D *obstacleTwoTexture = [CCTexture2D init];    
+    CCTexture2D *bigObstacleTexture = [CCTexture2D init];
+    CCTexture2D *movingObstacleTexture = [CCTexture2D init];
     
     if (level == 2) {
         roadTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sandroad.png"]];
@@ -192,7 +204,7 @@
         obstacleTwo.rotation = 320;
     }else if (level == 3){
         obstacleTwo.rotation = 0;
-        roadTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"iceroad2.png"]];
+        roadTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"iceroad.png"]];
         obstacleOneTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"ice-obstacleOne.png"]];
         obstacleTwoTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"ice-obstacleTwo.png"]];
         bigObstacleTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"ice-bigObstacle.png"]];
@@ -203,7 +215,6 @@
         obstacleTwoTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"rainbow-obstacleTwo.png"]];
         bigObstacleTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"rainbow-bigObstacle.png"]];
         movingObstacleTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"rainbow-moving1.png"]];
-
     }
     
     
@@ -221,6 +232,7 @@
     [obstacleOneTexture release];
     [obstacleTwoTexture release];
     [bigObstacleTexture release];
+    [movingObstacleTexture release];
 }
 
 -(void)saveHighScore
@@ -235,7 +247,6 @@
 
 -(void)dealloc
 {
-    NSLog(@"DEALLOC - GAME OVER SCENE %@",self);
     
     [background release];
     [tunnel release];
@@ -250,6 +261,8 @@
     [slow release];
     [gun release];
     [bullet release];
+    [highscoreBackgound release];
+    
     
     [CCSpriteFrameCache purgeSharedSpriteFrameCache];
     [CCTextureCache purgeSharedTextureCache];    

@@ -69,6 +69,12 @@ static Game* _sharedGame = nil;
     }
 }
 
+
+/** resetGame
+ *
+ * This method set the starting values for all in game objects.
+ *
+ */
 -(void)resetGame
 {
 
@@ -153,26 +159,6 @@ static Game* _sharedGame = nil;
     
 }
 
--(int)highestScore:(NSArray *)highScore
-{
-    NSArray *sortedArray = [highScore sortedArrayUsingSelector:@selector(compare:)];
-    int sortedArrayCount = [sortedArray count];
-    int retrunInt = [[sortedArray objectAtIndex:(sortedArrayCount-1)]intValue];
-
-    return retrunInt;
-}
-
--(void)startGame
-{
-    self.started = YES;
-    //MUSIC
-    self.music = NO;
-    self.musicPlaying = NO;
-    
-    //SOUND EFFECTS
-    self.sfx = YES;
-    NSLog(@"START GAME KÖR");
-}
 
 -(void)dealloc
 {

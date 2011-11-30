@@ -1,9 +1,10 @@
 //
-//  SettingsLayer.h
-//  ettjavlabilspel
+// SettingsLayer.h
+// ettjavlabilspel
 //
-//  Created by Andreas Areschoug.
+// Created by Andreas Areschoug.
 //
+// Settings the user can choose to turn on/off music and sfx
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"

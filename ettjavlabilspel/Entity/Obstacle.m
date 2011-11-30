@@ -1,5 +1,11 @@
-#import "Obstacle.h"
+//
+//  Obstacle.m
+//  ettjavlabilspel
+//
+//  Created by Andreas Areschoug.
+//
 
+#import "Obstacle.h"
 
 @implementation Obstacle
 
@@ -17,7 +23,6 @@
     return self;
 }
 -(void)dealloc{
-    NSLog(@"DEALLOC HOLE - %p",self);
     [super dealloc];
 }
 

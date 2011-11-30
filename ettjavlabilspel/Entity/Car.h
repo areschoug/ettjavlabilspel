@@ -1,3 +1,11 @@
+//
+// Entity.h
+// ettjavlabilspel
+//
+// Created by Andreas Areschoug.
+//
+// Car class.
+
 #import "cocos2d.h"
 
 #import "SimpleAudioEngine.h"
@@ -6,12 +14,10 @@
 
 
 @interface Car : CCSprite {
-    CGPoint carPosition;
     NSString *spriteImage;
     int audioTicker;
 }
 
-@property CGPoint carPosition;
 @property(nonatomic,retain) NSString *spriteImage;
 
 -(void) moveX:(float)accX moveY:(float)accY drunk:(BOOL)drunk;

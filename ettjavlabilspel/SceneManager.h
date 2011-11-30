@@ -1,9 +1,11 @@
 //
-//  SceneManager.h
-//  ettjavlabilspel
+// SceneManager.h
+// ettjavlabilspel
 //
-//  Created by Andreas Areschoug.
-//1u
+// Created by Andreas Areschoug.
+//
+// This class manage all the scenes and commits the changes of scenes
+//
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"

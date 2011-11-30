@@ -51,15 +51,9 @@
     menu = [CCMenu menuWithItems:logo,highScoreButton,newGameButton,settingsButton,instructionsButton, nil];
     menu.position = ccp(0, 0);
     
-    //TÖM HIGHSCORE ARRAYEN
-    /*
-    NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:100];
-    [[NSUserDefaults standardUserDefaults]setObject:array forKey:@"highScoreArray"];
-     */    
     [self addChild:menu];
     
-    
-
+    //CHECKS IF THE IPOD IS PLAYING MUSIC AND IF THE USER WANT GAME MUSIC IF SO THE PLAY MENU MUSIC
     if ([[MPMusicPlayerController iPodMusicPlayer] playbackState] != MPMusicPlaybackStatePlaying && [[NSUserDefaults standardUserDefaults] boolForKey:@"music"] && ![Game sharedGame].musicPlaying) {
         [[SimpleAudioEngine sharedEngine]playBackgroundMusic:@"menu_music.mp3"];
         [Game sharedGame].musicPlaying = YES;
@@ -69,6 +63,11 @@
     
     return self;
 }
+
+/** burningCar:(ccTime)dt
+ *
+ * animates the burning car
+ */
 
 -(void)burningCar:(ccTime)dt
 {
@@ -82,6 +81,10 @@
     
 }
 
+/** onMenuItemClicked:(id)sender
+ * 
+ * checks what button is clicked
+ */
 -(void)onMenuItemClicked:(id)sender
 {
     switch ([sender tag]) {
@@ -89,11 +92,10 @@
             [SceneManager goCarSelect];
             break;
         case 2:
-            if ([[NSUserDefaults standardUserDefaults] stringForKey:@"savedUsername"] == nil  && [[NSUserDefaults standardUserDefaults] stringForKey:@"savedPassword"] == nil) {
+            if ([[NSUserDefaults standardUserDefaults] stringForKey:@"savedUsername"] == nil  && [[NSUserDefaults standardUserDefaults] stringForKey:@"savedPassword"] == nil) 
                 [self promptLogin];
-            }else{
+            else
                 [SceneManager goHighScore];
-            }
             break;
         case 3:
             [SceneManager goSettings];
@@ -106,14 +108,20 @@
     }
 }
 
+/* alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
+ * 
+ * if the loginbutton is pressed and the user has five letter or more in the username and password
+ *
+ */
+
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex != [alertView cancelButtonIndex]){
 
         responsData = [[NSMutableData data] retain];
         
-        self.username = nameField.text;
-        self.password = passwordField.text;
+        username = nameField.text;
+        password = passwordField.text;
         
         if (username.length > 4 && password.length > 4) {
             NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://ettjavlabilspel.com/set_user_score.php?username=%@&password=%@&score=0",self.username,self.password]]];
@@ -125,6 +133,11 @@
         
     }
 }                
+
+/** promptLogin
+ *
+ * prompt the login box for the user. And checks if the user has made any errors whit the login prevously
+ */
 
 -(void)promptLogin
 {
@@ -184,6 +197,11 @@
     NSLog(@"ERROR: %@",[error description]);
 }
 
+/* connectionDidFinishLoading:(NSURLConnection *)connection
+ *
+ * checks if the user can be created or exist with the right information 
+ *
+ */
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     [connection release];
@@ -192,21 +210,15 @@
     [responsData release];
     
     NSMutableArray *responseArray = [responsString JSONValue];
-    
-    NSLog(@"->%@<- %i",responseArray,[responseArray count]);
+    [responsString release];
     
     for (int i = 0; i < [responseArray count]; i++) {
         NSMutableDictionary *responseDic = [responseArray objectAtIndex:i];
-        NSLog(@" -> %@",[responseDic objectForKey:@"success"]);
         int success = [[responseDic objectForKey:@"success"] intValue];
-        NSLog(@"success - %i",success);
         if ( success == 1) {
-            NSLog(@"USERNAME - %@",self.username);
-            NSLog(@"USERNAME - %@",self.password);
             [[NSUserDefaults standardUserDefaults] setObject:username forKey:@"savedUsername"];
             [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"savedPassword"];            
-            [SceneManager goHighScore
-];
+            [SceneManager goHighScore];
             return;
         }
     }
@@ -217,8 +229,8 @@
 - (void)dealloc {
     [background release];
     [backgroundCar release];
-    [self.username release];
-    [self.password release];
+    [username release];
+    [password release];
     [super dealloc];
 }
 

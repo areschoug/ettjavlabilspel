@@ -79,7 +79,7 @@
         highestScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"highestScore"];
 
 
-        
+        // WHICH CAR IS AVAILIBLE FOR THE USER
         if(highestScore < 200){
             CCMenuItemImage *lock = [CCMenuItemImage itemFromNormalImage:@"lock.png" selectedImage:@"lock.png"];
             [sportcar setNormalImage:lock];
@@ -94,21 +94,21 @@
             jeep.position = ccp(jeep.position.x - 10, jeep.position.y);            
         }
         
-        if(highestScore < 600){
+        if(highestScore < 800){
             CCMenuItemImage *lock = [CCMenuItemImage itemFromNormalImage:@"lock.png" selectedImage:@"lock.png"];
             [bat setNormalImage:lock];
             [bat setSelectedImage:lock];            
             bat.position = ccp(bat.position.x - 10, bat.position.y);            
         }
         
-        if(highestScore < 1000){
+        if(highestScore < 1600){
             CCMenuItemImage *lock = [CCMenuItemImage itemFromNormalImage:@"lock.png" selectedImage:@"lock.png"];
             [army setNormalImage:lock];
             [army setSelectedImage:lock];
             army.position = ccp(army.position.x - 10, army.position.y);            
         }
         
-        if(highestScore < 1200){
+        if(highestScore < 3200){
             CCMenuItemImage *lock = [CCMenuItemImage itemFromNormalImage:@"lock.png" selectedImage:@"lock.png"];
             [dream setNormalImage:lock];
             [dream setSelectedImage:lock];
@@ -123,10 +123,33 @@
     return self;
 }
 
+/* backButtonClicked:(id)sender
+ * 
+ * go back to menu.
+ */
+
 -(void) backButtonClicked:(id)sender
 {
     [SceneManager goMenu];
 }
+
+/* startGame:(id)sender
+ *
+ * starts the game
+ */
+
+-(void) startGame:(id)sender
+{
+    [[Game sharedGame]resetGame];
+    [SceneManager goGame];
+}
+
+
+/* changeCarColor:(id)sender
+ *
+ * if the user is good enough to use the clicked car they will be able to.
+ *
+ */
 
 -(void) changeCarColor:(id)sender
 {
@@ -168,12 +191,6 @@
         default:
             break;
     }
-}
-
--(void) startGame:(id)sender
-{
-    [[Game sharedGame]resetGame];
-    [SceneManager goGame];
 }
 
 - (void)dealloc {

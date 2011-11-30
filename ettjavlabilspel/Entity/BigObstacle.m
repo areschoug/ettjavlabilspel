@@ -1,3 +1,10 @@
+//
+//  BigObstacle.m
+//  ettjavlabilspel
+//
+//  Created by Andreas Areschoug.
+//
+
 #import "BigObstacle.h"
 
 @implementation BigObstacle
@@ -17,7 +24,6 @@
 }
 
 -(void)dealloc{
-    NSLog(@"DEALLOC DESTROYED CAR - %p",self);
     [super dealloc];
 }
 @end

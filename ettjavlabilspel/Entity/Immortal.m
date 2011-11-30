@@ -2,15 +2,12 @@
 //  Invincible.m
 //  ettjavlabilspel
 //
-//  Created by Andreas Areschoug on 2011-10-28.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Created by Andreas Areschoug.
 //
 
 #import "Immortal.h"
 
-
 @implementation Immortal
-
 
 -(Immortal *)init{
     self = [super init];

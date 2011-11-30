@@ -54,6 +54,11 @@
 
 }
 
+/* go:(CCLayer *)layer
+ * 
+ * changes to the scene of choice
+ */
+
 +(void) go:(CCLayer *)layer
 {
     CCDirector *director = [CCDirector sharedDirector];

@@ -2,12 +2,10 @@
 //  Gun.m
 //  ettjavlabilspel
 //
-//  Created by Andreas Areschoug on 2011-10-29.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Created by Andreas Areschoug.
 //
 
 #import "Gun.h"
-
 
 @implementation Gun
 

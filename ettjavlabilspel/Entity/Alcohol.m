@@ -1,3 +1,10 @@
+//
+//  Alcohol.m
+//  ettjavlabilspel
+//
+//  Created by Andreas Areschoug.
+//
+
 #import "Alcohol.h"
 
 @implementation Alcohol

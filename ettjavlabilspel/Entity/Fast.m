@@ -2,12 +2,10 @@
 //  Fast.m
 //  ettjavlabilspel
 //
-//  Created by Andreas Areschoug on 2011-10-31.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Created by Andreas Areschoug.
 //
 
 #import "Fast.h"
-
 
 @implementation Fast
 

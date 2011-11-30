@@ -42,6 +42,11 @@
     return self;
 }
 
+/**musicButtonCliced:(id)sender
+ *
+ * if the music is on it will be off and the other way around
+ *
+ */
 -(void)musicButtonClicked:(id)sender
 {
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"music"]){
@@ -57,6 +62,11 @@
     [self checkMusic];
 }
 
+/**sfxButtonCliced:(id)sender
+ *
+ * if the sfx is on it will be off and the other way around
+ *
+ */
 -(void)sfxButtonClicked:(id)sender
 {
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"muteSfx"]){
@@ -70,10 +80,21 @@
     [self checkSfx];
 }
 
+/* backButtonClicked:(id)sender
+ *
+ * go back to main menu
+ */
+
 -(void) backButtonClicked:(id)sender
 {
     [SceneManager goMenu];
 }
+
+/* checkMusic
+ * 
+ * sets the texture for the music on/off switch
+ *
+ */
 
 -(void)checkMusic
 {
@@ -88,6 +109,12 @@
     CCMenuItemImage *musicButton = [CCMenuItemImage itemFromNormalImage:musicImage selectedImage:musicImage];
     [music setNormalImage:musicButton];
 }
+
+/* checkSfx
+ * 
+ * sets the texture for the sfx on/off switch
+ *
+ */
 
 -(void) checkSfx
 {

@@ -16,6 +16,12 @@
     return self;
 }
 
+
+/* collision:(CCSprite *)obj
+ *
+ * Checks the own content size and its position and the incomming object.And if the interscets it returns true. 
+ *
+ */
 -(BOOL)collision:(CCSprite *)obj{
     CGRect selfSprite = CGRectMake((self.position.x-(self.contentSize.width/2)), (self.position.y-(self.contentSize.height/2)), self.contentSize.width, self.contentSize.height);
     
@@ -24,9 +30,22 @@
     return (CGRectIntersectsRect(selfSprite, objSprite));
 }
 
+/* getRandomNumber:(int)from to:(int)to
+ *
+ * returns a complete random number between from and to.
+ *
+ */
+
 -(int)getRandomNumber:(int)from to:(int)to {
     return (int)from + arc4random() % (to-from+1);
 }
+
+/* getStartPositions:(int)range
+ *
+ * returns a random starting position between the top of the screen and the range number.
+ * And x position is random from the startingPoitns array
+ *
+ */
 
 -(CGPoint)getStartPositions:(int)range
 {
@@ -35,11 +54,19 @@
     return ccp(x,y);
 }
 
+/*goX:(int)distanceX goY:(int)distanceY
+ *
+ * moves the object the distanse of distaceX and distanceY
+ */
 -(void)goX:(int)distanceX goY:(int)distanceY
 {
     self.position = ccp(self.position.x+distanceX, self.position.y+distanceY);
 }
 
+/* objectGoX:(int)distanceX objectGoY:(int)distanceY
+ *
+ * moves up the object if its under the screen
+ */
 -(void)objectGoX:(int)distanceX objectGoY:(int)distanceY
 {
     if(self.position.y <= 0 - self.contentSize.height/2)
@@ -49,7 +76,6 @@
 }
 
 -(void)dealloc{
-    NSLog(@"DEALLOC ENTITY - %p",self);
     [startingPoints release];
     [super dealloc];
 }

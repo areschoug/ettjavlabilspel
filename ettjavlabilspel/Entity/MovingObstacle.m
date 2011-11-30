@@ -2,8 +2,7 @@
 //  MovingObstacle.m
 //  ettjavlabilspel
 //
-//  Created by Andreas Areschoug on 2011-11-23.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Created by Andreas Areschoug.
 //
 
 #import "MovingObstacle.h"
@@ -24,6 +23,11 @@
     return self;
 }
 
+/* movingObjectGoX:(int)distanceX movingObjectGoY:(int)distanceY
+ *
+ * move the object and moves it back when its out of its startingRate
+ *
+ */
 -(void)movingObjectGoX:(int)distanceX movingObjectGoY:(int)distanceY
 {
     if(self.position.x >= startRate)
@@ -32,6 +36,11 @@
     [self goX:distanceX goY:distanceY];
 }
 
+/* getMovingStartPositions
+ *
+ * get a random start position
+ *
+ */
 -(CGPoint)getMovingStartPositions
 {
     int x = -(self.contentSize.width/2+10);
@@ -39,10 +48,7 @@
     return ccp(x, y);
 }
 
-
-
 -(void)dealloc{
-    NSLog(@"DEALLOC HOLE - %p",self);
     [super dealloc];
 }
 

@@ -1,3 +1,11 @@
+//
+// Bullet.h
+// ettjavlabilspel
+//
+// Created by Andreas Areschoug.
+//
+// 
+
 #import "Entity.h"
 @interface Bullet : Entity{
     

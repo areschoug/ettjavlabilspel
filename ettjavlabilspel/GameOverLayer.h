@@ -1,9 +1,10 @@
 //
-//  GameOverScene.h
-//  ettjavlabilspel
+// GameOverScene.h
+// ettjavlabilspel
 //
-//  Created by Andreas Areschoug.
+// Created by Andreas Areschoug.
 //  
+// Shown when the player crashed whit the car 
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
@@ -12,6 +13,7 @@
 
 @interface GameOverLayer : CCLayer {
     CCSprite *background;
+    CCSprite *highscoreBackgound;
     CCSprite *tunnel;
     CCSprite *car;
     //OBSTACLE

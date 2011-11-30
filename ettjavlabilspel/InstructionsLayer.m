@@ -48,6 +48,12 @@
     return self;
 }
 
+/*backButtonClicked:(id)sender
+ *
+ * go back to main menu
+ *
+ */
+
 -(void) backButtonClicked:(id)sender
 {
     [SceneManager goMenu];

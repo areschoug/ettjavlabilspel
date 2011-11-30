@@ -4,13 +4,6 @@
 //
 //  Created by Andreas Areschoug.
 //
-//  The highscore scene. Currently the highscore only showes top five on your the handset.
-//
-//  TODO:
-//  - implement nice graphics 
-//  - global highscore and your position in the world highscore
-//  - possible your friends highscore
-//  - possible post score to twitter,facebook or something.
 
 #import "HighScoreLayer.h"
 
@@ -59,6 +52,10 @@
     return self;
 }
 
+/**backButtonClicked:(id) sender
+ * 
+ * go to mainmenu
+ */
 
 -(void)backButtonClicked:(id) sender
 {  
@@ -80,6 +77,11 @@
     NSLog(@"ERROR: %@",[error description]);
 }
 
+/** connectionDidFinishLoading:(NSURLConnection *)connection
+ *
+ * checks the users position in the world and shows the top 10 in the world
+ *
+ */
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     [connection release];
@@ -88,6 +90,7 @@
     [responsData release];
  
     NSMutableArray *responsArray = [responsString JSONValue];
+    [responsString release];
     
     NSMutableDictionary *responseDictionary = [responsArray objectAtIndex:0];
     NSMutableArray *yourArray = [responseDictionary objectForKey:@"yourscore"];

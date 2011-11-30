@@ -1,10 +1,10 @@
 //
-//  MovingObstacle.h
-//  ettjavlabilspel
+// MovingObstacle.h
+// ettjavlabilspel
 //
-//  Created by Andreas Areschoug on 2011-11-23.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+// Created by Andreas Areschoug.
 //
+// Class for moving obstacles
 
 #import "Entity.h"
 

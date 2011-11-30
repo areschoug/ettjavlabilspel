@@ -2,7 +2,6 @@
 
 @implementation Car
 
-@synthesize carPosition;
 @synthesize spriteImage;
 
 -(void) moveX:(float)accX moveY:(float)accY drunk:(BOOL)drunk{
@@ -24,15 +23,12 @@
         accX = 0;
     }
     
-    
     if(-0.02 < accY && accY < 0.02){
         accY = 0;
     }
     
-    
     int newPosX = self.position.x+(accX*35);
     int newPosY = self.position.y+((accY)*50);
-    
     
     if(newPosX > screenSize.width-width/2){
         donePosX = screenSize.width-width/2;
@@ -66,39 +62,44 @@
 
     [self runAction:[CCMoveTo actionWithDuration:1/60 position:ccp(donePosX, donePosY)]];
     
-    
+    //IF DRUNK DO NOT ROTATE
     if (!drunk){
     //ROTATION
-    float carRotation;
+        float carRotation = 0;
     
-    if (accX > 0.1 || accX < -0.1) {
-        carRotation = self.rotation + (accX * 3);
-        if(carRotation < 0 && accX > 0.2){
-            carRotation = 0;
-        }else if(carRotation > 0 && accX < -0.2){
-            carRotation = 0;
-        }
-    }
-    
-    if ((accX < 0.1 && accX > -0.1)||donePosX < width || donePosX > 320-width) {
-        if (self.rotation == 0) {
-            carRotation = 0;
-        }else if(self.rotation > 0){
-            carRotation = self.rotation - 5;
-            if (carRotation < 0) {
+        if (accX > 0.1 || accX < -0.1) {
+            carRotation = self.rotation + (accX * 3);
+            if(carRotation < 0 && accX > 0.2){
                 carRotation = 0;
-            }
-        }else{
-            carRotation = self.rotation + 5;
-            if(carRotation > 0){
+            }else if(carRotation > 0 && accX < -0.2){
                 carRotation = 0;
             }
         }
-    }
     
-    [self runAction:[CCRotateTo actionWithDuration:1/60 angle:carRotation]];    
+        if ((accX < 0.1 && accX > -0.1)||donePosX < width || donePosX > 320-width) {
+            if (self.rotation == 0) {
+                carRotation = 0;
+            }else if(self.rotation > 0){
+                carRotation = self.rotation - 5;
+                if (carRotation < 0) {
+                    carRotation = 0;
+                }
+            }else{
+                carRotation = self.rotation + 5;
+                if(carRotation > 0){
+                    carRotation = 0;
+                }
+            }
+        }
+    
+        [self runAction:[CCRotateTo actionWithDuration:1/60 angle:carRotation]];    
     }
 }
+
+/*scoreMultiplier
+ * 
+ * depending on what position the car has the score intake increases.
+ */
 
 -(float)scoreMultiplier
 {
@@ -122,7 +123,6 @@
 
 -(void)dealloc
 {
-    NSLog(@"DEALLOC CAR - %p",self);
     [spriteImage release];
     [super dealloc];
 
