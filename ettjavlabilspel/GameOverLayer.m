@@ -66,6 +66,7 @@
         movingObstacle = [[CCSprite alloc] initWithFile:@"city-moving1.png"];
         movingObstacle.position = [Game sharedGame].movingObstaclePosition;
         movingObstacle.rotation = 40;
+        
         //POWERUPS
         
         //init bottle
@@ -189,11 +190,11 @@
 
 -(void) setTexture
 {
-    CCTexture2D *roadTexture = [CCTexture2D init];
-    CCTexture2D *obstacleOneTexture = [CCTexture2D init];
-    CCTexture2D *obstacleTwoTexture = [CCTexture2D init];    
-    CCTexture2D *bigObstacleTexture = [CCTexture2D init];
-    CCTexture2D *movingObstacleTexture = [CCTexture2D init];
+    CCTexture2D *roadTexture;
+    CCTexture2D *obstacleOneTexture;
+    CCTexture2D *obstacleTwoTexture;    
+    CCTexture2D *bigObstacleTexture;
+    CCTexture2D *movingObstacleTexture;
     
     if (level == 2) {
         roadTexture = [[CCTexture2D alloc] initWithImage:[UIImage imageNamed:@"sandroad.png"]];

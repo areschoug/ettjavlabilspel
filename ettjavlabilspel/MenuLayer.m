@@ -120,8 +120,8 @@
 
         responsData = [[NSMutableData data] retain];
         
-        username = nameField.text;
-        password = passwordField.text;
+        self.username = nameField.text;
+        self.password = passwordField.text;
         
         if (username.length > 4 && password.length > 4) {
             NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://ettjavlabilspel.com/set_user_score.php?username=%@&password=%@&score=0",self.username,self.password]]];
@@ -216,8 +216,8 @@
         NSMutableDictionary *responseDic = [responseArray objectAtIndex:i];
         int success = [[responseDic objectForKey:@"success"] intValue];
         if ( success == 1) {
-            [[NSUserDefaults standardUserDefaults] setObject:username forKey:@"savedUsername"];
-            [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"savedPassword"];            
+            [[NSUserDefaults standardUserDefaults] setObject:self.username forKey:@"savedUsername"];
+            [[NSUserDefaults standardUserDefaults] setObject:self.password forKey:@"savedPassword"];            
             [SceneManager goHighScore];
             return;
         }

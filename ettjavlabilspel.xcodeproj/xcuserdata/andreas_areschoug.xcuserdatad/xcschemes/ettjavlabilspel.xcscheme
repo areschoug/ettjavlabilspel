@@ -14,7 +14,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "29BB9FA0141EB79D003A659B"
-               BuildableName = "ettjavlabilspel.app"
+               BuildableName = "Ett Bilspel.app"
                BlueprintName = "ettjavlabilspel"
                ReferencedContainer = "container:ettjavlabilspel.xcodeproj">
             </BuildableReference>
@@ -32,7 +32,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "29BB9FA0141EB79D003A659B"
-            BuildableName = "ettjavlabilspel.app"
+            BuildableName = "Ett Bilspel.app"
             BlueprintName = "ettjavlabilspel"
             ReferencedContainer = "container:ettjavlabilspel.xcodeproj">
          </BuildableReference>
@@ -51,7 +51,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "29BB9FA0141EB79D003A659B"
-            BuildableName = "ettjavlabilspel.app"
+            BuildableName = "Ett Bilspel.app"
             BlueprintName = "ettjavlabilspel"
             ReferencedContainer = "container:ettjavlabilspel.xcodeproj">
          </BuildableReference>
@@ -69,7 +69,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "29BB9FA0141EB79D003A659B"
-            BuildableName = "ettjavlabilspel.app"
+            BuildableName = "Ett Bilspel.app"
             BlueprintName = "ettjavlabilspel"
             ReferencedContainer = "container:ettjavlabilspel.xcodeproj">
          </BuildableReference>
@@ -79,7 +79,8 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Ad Hoc"
+      buildConfiguration = "Release"
+      customArchiveName = "Ett Bilspel"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

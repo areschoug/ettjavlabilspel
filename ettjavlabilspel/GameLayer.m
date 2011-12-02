@@ -92,7 +92,6 @@ int speedStateTimer;
         car = [[Car alloc] initWithFile:carColor];
         car.position = [Game sharedGame].carPosition;
         
-        
         //OBSTACLES
         
         //init obstacle one
@@ -151,7 +150,7 @@ int speedStateTimer;
         //init fast
         fast = [[Fast alloc] initWithFile:@"fast.png"];
         fast.position = [Game sharedGame].fastPosition;
-
+  
         if (level != 1) {
             [self setTexture];
         }
@@ -217,7 +216,7 @@ int speedStateTimer;
     if (playing) {
         
         //BACKGROUND
-        if (background.position.y <= 240-20) {
+        if (background.position.y <= 240-repeatRate) {
             background.position = ccp(160, background.position.y+repeatRate);
         }
         
@@ -562,7 +561,6 @@ int speedStateTimer;
 
 -(void)speedChange:(ccTime) dt
 {
-    NSLog(@"GAME speed %f",gameSpeed);
     gameSpeed += .1;
     realGameSpeed += .1;
 }
@@ -663,11 +661,11 @@ int speedStateTimer;
     [Game sharedGame].tunnelPosition = tunnel.position;
 }
 
-    /* checkMusic
-     * 
-     * sets the texture for the music on/off switch
-     *
-     */
+/* checkMusic
+* 
+* sets the texture for the music on/off switch
+*
+*/
 
 -(void)checkMusic
 {

@@ -83,35 +83,35 @@
         if(highestScore < 200){
             CCMenuItemImage *lock = [CCMenuItemImage itemFromNormalImage:@"lock.png" selectedImage:@"lock.png"];
             [sportcar setNormalImage:lock];
-            [sportcar   setSelectedImage:lock];            
+
             sportcar.position = ccp(sportcar.position.x - 10, sportcar.position.y);            
         }
         
         if(highestScore < 400){
             CCMenuItemImage *lock = [CCMenuItemImage itemFromNormalImage:@"lock.png" selectedImage:@"lock.png"];
             [jeep setNormalImage:lock];
-            [jeep setSelectedImage:lock];
+
             jeep.position = ccp(jeep.position.x - 10, jeep.position.y);            
         }
         
         if(highestScore < 800){
             CCMenuItemImage *lock = [CCMenuItemImage itemFromNormalImage:@"lock.png" selectedImage:@"lock.png"];
             [bat setNormalImage:lock];
-            [bat setSelectedImage:lock];            
+
             bat.position = ccp(bat.position.x - 10, bat.position.y);            
         }
         
         if(highestScore < 1600){
             CCMenuItemImage *lock = [CCMenuItemImage itemFromNormalImage:@"lock.png" selectedImage:@"lock.png"];
             [army setNormalImage:lock];
-            [army setSelectedImage:lock];
+
             army.position = ccp(army.position.x - 10, army.position.y);            
         }
         
         if(highestScore < 3200){
             CCMenuItemImage *lock = [CCMenuItemImage itemFromNormalImage:@"lock.png" selectedImage:@"lock.png"];
             [dream setNormalImage:lock];
-            [dream setSelectedImage:lock];
+
             dream.position = ccp(dream.position.x - 10, dream.position.y);
         }
         
